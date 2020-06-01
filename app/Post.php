@@ -14,4 +14,8 @@ class Post extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+    // PostFiles OneToMany Relationship
+    public function postFiles(){
+        return $this->hasMany('App\PostFile', 'post_id');
+    }
 }

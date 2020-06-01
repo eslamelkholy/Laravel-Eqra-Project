@@ -19,7 +19,8 @@ class Post extends JsonResource
         return [
             'id' => $this->id,
             'body_content' => $this->body_content,
-            'user_id' => $this->user,
+            'user' => $this->user,
+            'files' => $this->postFiles,
             'created_at' => $this->created_at
         ];
     }
