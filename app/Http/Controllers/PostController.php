@@ -31,7 +31,12 @@ class PostController extends Controller
             return response()->json(["message" => "Post Not Found" ], 404);
         return new PostResource($post);
     }
-
+    /**
+     * Create new Post
+     * @param  [text] body_content
+     * @param  [text] user_od
+     * @param  [file] postFiles[]
+     */
     public function store(PostRequest $request)
     {
         $post = Post::create($request->all());
