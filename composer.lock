@@ -3002,11 +3002,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2020-05-30T20:35:19+00:00"
-=======
             "time": "2020-03-30T11:42:42+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/css-selector",
@@ -3073,7 +3069,6 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-20T17:43:50+00:00"
         },
         {
@@ -3135,9 +3130,6 @@
                 }
             ],
             "time": "2020-05-27T08:34:37+00:00"
-=======
-            "time": "2020-03-27T16:56:45+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/error-handler",
@@ -3208,11 +3200,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-30T20:35:19+00:00"
-=======
-            "time": "2020-03-30T14:14:32+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3298,11 +3286,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-20T17:43:50+00:00"
-=======
-            "time": "2020-03-27T16:56:45+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3437,11 +3421,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-20T17:43:50+00:00"
-=======
-            "time": "2020-03-27T16:56:45+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/http-foundation",
@@ -3516,11 +3496,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-24T12:18:07+00:00"
-=======
-            "time": "2020-04-18T20:50:06+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/http-kernel",
@@ -3633,11 +3609,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-31T06:14:18+00:00"
-=======
-            "time": "2020-04-28T18:53:25+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/mime",
@@ -3714,11 +3686,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-25T12:33:44+00:00"
-=======
-            "time": "2020-04-17T03:29:44+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -4304,7 +4272,6 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-12T16:47:27+00:00"
         },
         {
@@ -4381,8 +4348,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
             "time": "2020-05-12T16:47:27+00:00"
         },
         {
@@ -4447,11 +4412,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2020-05-30T20:35:19+00:00"
-=======
             "time": "2020-04-15T15:59:10+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/psr-http-message-bridge",
@@ -4607,11 +4568,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2020-05-30T20:35:19+00:00"
-=======
             "time": "2020-04-21T21:02:50+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/service-contracts",
@@ -4683,7 +4640,6 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2020-05-20T17:43:50+00:00"
         },
         {
@@ -4769,8 +4725,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
             "time": "2020-05-20T17:43:50+00:00"
         },
         {
@@ -4863,11 +4817,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2020-05-30T20:35:19+00:00"
-=======
             "time": "2020-04-12T16:45:47+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "symfony/translation-contracts",
@@ -5028,11 +4978,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2020-05-30T20:35:19+00:00"
-=======
             "time": "2020-04-12T16:45:47+00:00"
->>>>>>> 55a1701fcde0e72b2d35d4c85a1bf3caf1e4bfa6
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -5357,16 +5303,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "38e1b180544bfefebe37e0f65980792ea78a534a"
+                "reference": "5261c488a1e8a7c3ebdf6a4037c34f5ddeb33922"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/38e1b180544bfefebe37e0f65980792ea78a534a",
-                "reference": "38e1b180544bfefebe37e0f65980792ea78a534a",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/5261c488a1e8a7c3ebdf6a4037c34f5ddeb33922",
+                "reference": "5261c488a1e8a7c3ebdf6a4037c34f5ddeb33922",
                 "shasum": ""
             },
             "require": {
@@ -5424,7 +5370,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2020-05-28T22:49:07+00:00"
+            "time": "2020-06-01T09:04:48+00:00"
         },
         {
             "name": "facade/ignition-contracts",
