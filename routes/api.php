@@ -16,7 +16,7 @@ use Laravel\Passport\Http\Controllers\AccessTokenController;
 |
 */
 
-
+// Authentication & User Api's
 Route::group([
     'prefix' => 'auth'
 ], function () {
@@ -29,4 +29,9 @@ Route::group([
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
     });
+});
+
+// Normal Api's >> Tokens & application/json Must Be Included to work
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::apiResource("post", 'PostController');
 });
