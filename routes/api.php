@@ -32,6 +32,6 @@ Route::group([
 });
 
 // Normal Api's >> Tokens & application/json Must Be Included to work
-Route::group(['middleware' => 'auth:api'], function(){
+// Route::group(['middleware' => 'auth:api'], function(){
     Route::apiResource("post", 'PostController');
-});
+// });
