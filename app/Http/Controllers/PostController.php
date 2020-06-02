@@ -65,21 +65,13 @@ class PostController extends Controller
 
     // Upload Files Handler
     public function uploadPostFiles($request, $postId){
-        $allowedfileExtension=['pdf','jpg','png','docx', 'mp3', 'mp4', 'docx', 'pdf', 'txt'];
         $files = $request->file('postFiles');
         foreach($files as $file){
-            $filename = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            $check=in_array($extension,$allowedfileExtension);
-            if($check){
-                foreach ($request->postFiles as $postFile) {
-                    $filename = $postFile->store('postFiles');
-                    PostFile::create([
-                        'post_id' => $postId,
-                        'filename' => $filename
-                    ]);
-                }
-            }
+            $filename = $file->store('postFiles');
+            PostFile::create([
+                'post_id' => $postId,
+                'filename' => $filename
+            ]);
         }
     }
 }
