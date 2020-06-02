@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Post;
-use App\PostFile;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Requests\PostRequest;
 
@@ -31,17 +30,10 @@ class PostController extends Controller
             return response()->json(["message" => "Post Not Found" ], 404);
         return new PostResource($post);
     }
-    /**
-     * Create new Post
-     * @param  [text] body_content
-     * @param  [text] user_od
-     * @param  [file] postFiles[]
-     */
+
     public function store(PostRequest $request)
     {
         $post = Post::create($request->all());
-        if($request->hasFile('postFiles'))
-            $this->uploadPostFiles($request, $post->id);
         return response()->json($post, 201);
     }
 
@@ -61,17 +53,5 @@ class PostController extends Controller
             return response()->json(["message" => "Post Not Found" ], 404);
         $post->delete();
         return response()->json(null, 204);
-    }
-
-    // Upload Files Handler
-    public function uploadPostFiles($request, $postId){
-        $files = $request->file('postFiles');
-        foreach($files as $file){
-            $filename = $file->store('postFiles');
-            PostFile::create([
-                'post_id' => $postId,
-                'filename' => $filename
-            ]);
-        }
     }
 }

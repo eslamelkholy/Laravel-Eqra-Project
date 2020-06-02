@@ -36,3 +36,7 @@ Route::group([
 Route::group(['middleware' => 'auth:api'], function(){
     Route::apiResource("post", 'PostController');
 });
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::apiResource("comment", 'CommentController');
+});

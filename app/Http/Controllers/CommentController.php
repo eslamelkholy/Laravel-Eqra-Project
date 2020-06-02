@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Comment_Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -14,6 +16,7 @@ class CommentController extends Controller
      */
     public function index()
     {
+        return response()->json(request(),200);
         $comments=Comment::all()->sortBy('created_at');
         return response()->json($comments,200);
     }
@@ -36,7 +39,17 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateRequest();
+        $comment=new Comment([
+            'user_id'=>Auth::user()->id,
+            'post_id'=>$request->postId,
+            'content'=>$request->content
+        ]);
+        $comment->save();
+        if($request->hasFile('image')){
+            $this->storeImage($request,$comment->id);
+        }
+        return response()->json($comment,200);
     }
 
     /**
@@ -47,7 +60,8 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $comment=Comment_Image::find($id);
+        return $comment;
     }
 
     /**
@@ -85,9 +99,21 @@ class CommentController extends Controller
     }
 
     private function validateRequest(){
-        return tap($request->validate([
-            'title' => ['required', 'unique:posts', 'max:255'],
-            'body' => ['required'],
-        ])
+        if(request()->hasFile('image')){
+            request()->validate([
+                'image'=>'required|image',
+            ]);
+        }else{
+            request()->validate([
+                'content'=>'required',
+            ]);
+        }
+    }
+
+    private function storeImage($request,$commentId){
+        $image=new Comment_Image();
+        $image->image=$request->image->store('comments','public');
+        $image->comment_id=$commentId;
+        $image->save();
     }
 }
