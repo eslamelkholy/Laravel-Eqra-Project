@@ -94,6 +94,13 @@
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                <form action="/api/post" method="POST" enctype="multipart/form-data" files="true">
+                {{ csrf_field() }}
+                    <input type="text" name="body_content" /><br/>
+                    <input type="text" name="user_id" /><br/>
+                    <input type="file" name="postFiles[]" multiple /><br/>
+                    <input type="submit" value="upload" />
+                </form>
             </div>
         </div>
     </body>

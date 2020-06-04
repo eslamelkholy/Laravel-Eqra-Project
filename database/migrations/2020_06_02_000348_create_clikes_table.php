@@ -14,10 +14,12 @@ class CreateClikesTable extends Migration
     public function up()
     {
         Schema::create('clikes', function (Blueprint $table) {
-            $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('comment_id');
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->foreign("comment_id")->references("id")->on("comments")->onDelete('cascade');
+            $table->primary(['user_id', 'comment_id']);
         });
     }
 

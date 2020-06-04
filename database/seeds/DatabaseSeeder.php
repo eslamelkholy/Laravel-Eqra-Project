@@ -15,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
-        DB::table('users')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10) . '@gmail.com',
-            'password' => Hash::make('password'),
+        $this->call([
+            UserSeeder::class,
+            PlikeSeeder::class,
+            ClikeSeeder::class,
         ]);
+        // DB::table('users')->insert([
+        //     'name' => Str::random(10),
+        //     'email' => Str::random(10) . '@gmail.com',
+        //     'password' => Hash::make('password'),
+        // ]);
     }
 }

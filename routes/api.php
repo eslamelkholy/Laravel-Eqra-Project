@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -38,3 +39,8 @@ Route::apiResource("post", 'PostController');
 Route::get("post/{post}/likes", 'LikesController@plikes');
 Route::get("comment/{comment}/likes", 'LikesController@clikes');
 // });
+
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("comment", 'CommentController');
+});
