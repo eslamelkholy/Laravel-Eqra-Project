@@ -11,8 +11,8 @@ use App\Http\Requests\GenreRequest;
 class UserGenreController extends Controller
 {
     /*
-        /api/user/genre     >> [GET]
-        /api/user/genre     >> [POST]
+        /api/user/genre     >> [GET]    >> List all User Genres
+        /api/user/genre     >> [POST]   >> Add/Update User Genre
     */
     public function index()
     {
