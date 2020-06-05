@@ -11,13 +11,6 @@ use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
-    /*
-        /api/post       [ GET ]   >> List All Posts
-        /api/post       [ POST ]  >> Add New Post
-        /api/post/id    [ GET ]   >> Get Post
-        /api/post/id    [ PUT ]   >> Update POST
-        /api/post/id    [ Get ]   >> Delete POST
-    */
     public function index()
     {
         $posts = Post::paginate(20);

@@ -42,4 +42,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post', 'user_id');
     }
+
+    // genres OneToMany Relationship
+    public function genres()
+    {
+        return $this->belongsToMany('App\Genre', 'user_genres')->withTimestamps();;
+    }
 }
