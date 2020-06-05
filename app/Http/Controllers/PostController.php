@@ -34,8 +34,9 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $request['user_id'] = Auth::id();
         $post = Post::create($request->all());
+        if($request->hasFile('postFiles'))
+            $this->uploadPostFiles($request, $post->id);
         return response()->json($post, 201);
     }
 
@@ -55,5 +56,16 @@ class PostController extends Controller
             return response()->json(["message" => "Post Not Found" ], 404);
         $post->delete();
         return response()->json(null, 204);
+    }
+    // Upload Files Handler
+    public function uploadPostFiles($request, $postId){
+        $files = $request->file('postFiles');
+        foreach($files as $file){
+            $filename = $file->store('postFiles');
+            PostFile::create([
+                'post_id' => $postId,
+                'filename' => $filename
+            ]);
+        }
     }
 }
