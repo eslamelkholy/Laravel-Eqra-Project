@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PlikeSeeder::class,
             ClikeSeeder::class,
+            PostSeeder::class,
         ]);
         // DB::table('users')->insert([
         //     'name' => Str::random(10),

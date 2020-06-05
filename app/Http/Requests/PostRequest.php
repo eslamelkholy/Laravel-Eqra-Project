@@ -14,7 +14,7 @@ class PostRequest extends FormRequest
     {
         return [
             'body_content' => 'required|min:3|max:250',
-            'postFiles.*' => 'required|file|mimes:ppt,pptx,doc,docx,pdf,xlsx,xls,csv,jpg,jpeg,png,bmp,tif,txt,mp4,mp3,zip',
+            'postFiles.*' => 'required|file|mimes:ppt,pptx,doc,pdf,xlsx,xls,csv,jpg,jpeg,png,bmp,tif,txt,mp4,mp3,zip',
         ];
     }
     public function messages(){
@@ -22,7 +22,7 @@ class PostRequest extends FormRequest
             'body_content.required' => 'Post Body Is Required',
             'body_content.min' => 'Post Body Must Be At least 3 Characters',
             'body_content.max' => 'Sorry Max Numbers of Characters is 250',
-            'postFiles.*.mimes' => 'Only xlsx,xls,csv,jpg,jpeg,png,bmp,doc,docx,odt,tif,pdf,txt,mp4,mp3,pptx are allowed '
+            'postFiles.*.mimes' => 'Only required|file|mimes:ppt,pptx,doc,pdf,xlsx,xls,csv,jpg,jpeg,png,bmp,tif,txt,mp4,mp3,zip are allowed '
         ];
     }
 

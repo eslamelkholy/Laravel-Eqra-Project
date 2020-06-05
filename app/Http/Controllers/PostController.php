@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Post;
+use Auth;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Requests\PostRequest;
 
@@ -33,6 +34,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
+        $request['user_id'] = Auth::id();
         $post = Post::create($request->all());
         return response()->json($post, 201);
     }
