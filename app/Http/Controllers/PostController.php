@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostAdded;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Post;
-use Auth;
+use  Auth;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Requests\PostRequest;
+use App\PostFile;
 
 class PostController extends Controller
 {
@@ -30,6 +32,7 @@ class PostController extends Controller
         $post = Post::create($request->all());
         if($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
+        event(new PostAdded($post));
         return response()->json($post, 201);
     }
 

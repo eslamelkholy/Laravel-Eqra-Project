@@ -51,6 +51,7 @@ class CommentController extends Controller
         if($request->hasFile('image')){
             $this->storeImage($request,$comment->id);
         }
+        event(new PostAdded($comment));
         return response()->json($comment,200);
     }
 

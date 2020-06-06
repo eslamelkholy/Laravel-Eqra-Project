@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Comment;
+use App\Http\Resources\Post;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
