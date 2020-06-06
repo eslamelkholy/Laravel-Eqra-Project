@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Comment_Image;
+use App\Events\PostAdded;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return response()->json(request(),200);
+
         $comments=Comment::all()->sortBy('created_at');
         return response()->json($comments,200);
+        // return view('index');
     }
 
     /**
