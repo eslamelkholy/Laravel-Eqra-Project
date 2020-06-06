@@ -17,6 +17,7 @@ use Laravel\Passport\Http\Controllers\AccessTokenController;
 |
 */
 
+
 // Authentication & User Api's
 Route::group([
     'prefix' => 'auth'
@@ -33,10 +34,14 @@ Route::group([
 });
 
 // Normal Api's >> Tokens & application/json Must Be Included to work
-Route::group(['middleware' => 'auth:api'], function(){
+Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
+    Route::get("post/{post}/likes", 'LikesController@plikes');
+    Route::get("comment/{comment}/likes", 'LikesController@clikes');
+    Route::apiResource("user/genre", 'UserGenreController');
 });
 
-Route::group(['middleware' => 'auth:api'], function(){
+
+Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("comment", 'CommentController');
 });
