@@ -45,3 +45,11 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("comment", 'CommentController');
 });
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("follow", 'FollowController');
+});
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("char", 'ChatController');
+});
