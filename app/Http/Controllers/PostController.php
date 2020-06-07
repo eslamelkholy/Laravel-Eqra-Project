@@ -15,15 +15,15 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(20);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
         return PostResource::collection($posts);
     }
 
     public function show($id)
     {
         $post = Post::find($id);
-        if(is_null($post))
-            return response()->json(["message" => "Post Not Found" ], 404);
+        if (is_null($post))
+            return response()->json(["message" => "Post Not Found"], 404);
         return new PostResource($post);
     }
 
@@ -39,8 +39,8 @@ class PostController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::find($id);
-        if(is_null($post))
-            return response()->json(["message" => "Post Not Found" ], 404);
+        if (is_null($post))
+            return response()->json(["message" => "Post Not Found"], 404);
         $post->update($request->all());
         return response()->json($post, 200);
     }
@@ -48,8 +48,8 @@ class PostController extends Controller
     public function destroy(Request $request, $id)
     {
         $post = Post::find($id);
-        if(is_null($post))
-            return response()->json(["message" => "Post Not Found" ], 404);
+        if (is_null($post))
+            return response()->json(["message" => "Post Not Found"], 404);
         $post->delete();
         return response()->json(null, 204);
     }
