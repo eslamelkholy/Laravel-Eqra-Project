@@ -18,4 +18,9 @@ class Post extends Model
     public function postFiles(){
         return $this->hasMany('App\PostFile', 'post_id');
     }
+    // Post Likes
+    public function likes()
+    {
+        return $this->hasMany('App\Plike', 'post_id');
+    }
 }

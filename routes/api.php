@@ -38,7 +38,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::get("comment/{comment}/likes", 'LikesController@clikes');
+    // User Genres Add/Update/Delete User Genres
     Route::apiResource("user/genre", 'UserGenreController');
+    // List All Genres
+    Route::apiResource("genre", 'GenreController');
 });
 
 
