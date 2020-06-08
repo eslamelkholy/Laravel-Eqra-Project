@@ -20,6 +20,7 @@ class Post extends JsonResource
             'id' => $this->id,
             'body_content' => $this->body_content,
             'user' => $this->user,
+            'likes' => $this->likes->count(),
             'files' => $this->postFiles,
             'created_at' => $this->created_at
         ];

@@ -13,7 +13,6 @@ class GenreRequest extends FormRequest
     public function rules()
     {
         return [
-            'genres' => "required|array",
             'genres.*' => 'exists:genres,id',
         ];
     }

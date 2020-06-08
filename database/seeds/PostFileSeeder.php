@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PostSeeder extends Seeder
+class PostFileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Post::class, 50)->create();
+        factory(App\PostFile::class, 50)->create();
     }
 }

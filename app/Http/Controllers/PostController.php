@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostAdded;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Post;
-use Auth;
+use  Auth;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Requests\PostRequest;
+use App\PostFile;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(20);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
         return PostResource::collection($posts);
     }
 
     public function show($id)
     {
         $post = Post::find($id);
-        if(is_null($post))
-            return response()->json(["message" => "Post Not Found" ], 404);
+        if (is_null($post))
+            return response()->json(["message" => "Post Not Found"], 404);
         return new PostResource($post);
     }
 
@@ -30,14 +32,15 @@ class PostController extends Controller
         $post = Post::create($request->all());
         if($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
+        event(new PostAdded($post));
         return response()->json($post, 201);
     }
 
     public function update(PostRequest $request, $id)
     {
         $post = Post::find($id);
-        if(is_null($post))
-            return response()->json(["message" => "Post Not Found" ], 404);
+        if (is_null($post))
+            return response()->json(["message" => "Post Not Found"], 404);
         $post->update($request->all());
         return response()->json($post, 200);
     }
@@ -45,8 +48,8 @@ class PostController extends Controller
     public function destroy(Request $request, $id)
     {
         $post = Post::find($id);
-        if(is_null($post))
-            return response()->json(["message" => "Post Not Found" ], 404);
+        if (is_null($post))
+            return response()->json(["message" => "Post Not Found"], 404);
         $post->delete();
         return response()->json(null, 204);
     }

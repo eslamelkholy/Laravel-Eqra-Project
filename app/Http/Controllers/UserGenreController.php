@@ -22,6 +22,6 @@ class UserGenreController extends Controller
     public function store(GenreRequest $request)
     {
         Auth::user()->genres()->sync($request->genres);
-        return response()->json(["message" => "User Genres Updated Successfully"], 201);
+        return response()->json(["message" => $request->genres], 201);
     }
 }

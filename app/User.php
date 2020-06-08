@@ -43,9 +43,19 @@ class User extends Authenticatable
         return $this->hasMany('App\Post', 'user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
     // genres OneToMany Relationship
     public function genres()
     {
-        return $this->belongsToMany('App\Genre', 'user_genres')->withTimestamps();;
+        return $this->belongsToMany('App\Genre', 'user_genres')->withTimestamps();
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('app\Message','user_id');
     }
 }

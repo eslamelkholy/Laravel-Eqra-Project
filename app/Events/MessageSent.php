@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
-use App\Comment;
-use App\Http\Resources\Post;
+use App\Message;
+use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,19 +12,22 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PostAdded implements ShouldBroadcast
+class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $comment;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Comment $comment)
+
+    public $user;
+    public $message;
+
+    public function __construct(User $user,Message $message)
     {
-        $this->comment=$comment;
+
     }
 
     /**
@@ -34,17 +37,6 @@ class PostAdded implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('my-channel');
+        return new PrivateChannel('chat');
     }
-
-    public function broadcastAs()
-    {
-        return 'post-added';
-    }
-
-    //method to format your data as you wish
-    // public function broadcastWith()
-    // {
-    //     return ['comment' => $this->comment];
-    // }
 }

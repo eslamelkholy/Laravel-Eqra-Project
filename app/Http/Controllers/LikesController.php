@@ -17,7 +17,13 @@ class LikesController extends Controller
         //     array_push($users, $like->user);
         // }
         $users = DB::table('users')->join('plikes', 'id', '=', 'user_id')
-            ->select('name')->where('post_id', '=', $id)->paginate(10);
+            ->select('name', 'id')->where('post_id', '=', $id)->paginate(10);
+        // $arr = [];
+        // for ($i = 0; $i < 100000; $i++) {
+        //     for ($j = 0; $j < 100000; $j++) {
+        //         $arr[$i] = $j;
+        //     }
+        // }
         return response()->json($users, 200);
     }
     public function clikes($id)
@@ -28,7 +34,14 @@ class LikesController extends Controller
         //     array_push($users, $like->user);
         // }
         $users = DB::table('users')->join('clikes', 'id', '=', 'user_id')
-            ->select('name')->where('comment_id', '=', $id)->paginate(10);
+            ->select('name', 'id')->where('comment_id', '=', $id)->paginate(10);
+
+        $arr = [];
+        for ($i = 0; $i < 10000; $i++) {
+            for ($j = 0; $j < 10000; $j++) {
+                $arr[$i] = $j;
+            }
+        }
         return response()->json($users, 200);
     }
 }
