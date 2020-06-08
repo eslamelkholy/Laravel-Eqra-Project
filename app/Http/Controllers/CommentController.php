@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Comment_Image;
 use App\Events\PostAdded;
+use App\Http\Resources\Comment as CommentResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -17,9 +19,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-
-        $comments=Comment::all()->sortBy('created_at');
-        return response()->json($comments,200);
+        $comments=Comment::where('post_id',1)->orderBy('created_at', 'desc')->paginate(10);
+        return CommentResource::collection($comments);
     }
 
     /**
