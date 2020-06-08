@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UseValidateRequest;
 
 class AuthController extends Controller
 {
@@ -19,21 +21,30 @@ class AuthController extends Controller
      * @param  [string] password_confirmation
      * @return [string] message
      */
-    public function signup(Request $request)
+    public function signup(UseValidateRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
-        ]);
+        // $request->validate([
+        //     'name' => 'required|string',
+        //     'email' => 'required|string|email|unique:users',
+        //     'password' => 'required|string|confirmed'
+        // ]);
+        // if ($request->hasFile('avatar')) {
+        //     $path = $request->file('avatar')->store('avatars');
+        // } else {
+        //     $path = Storage::url('avatar.jpg');
+        // }
+        // $request['pictur']=$path;
         $user = new User([
-            'name' => $request->name,
+            'full_name' => $request->full_name,
+            'first_name'=>$request->first_name,
+            'last_name' => $request->last_name,
+            'username' =>$request->username,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
         ]);
         $user->save();
         $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
+        // $token = $tokenResult->token;
         return response()->json([
             'message' => 'Successfully created user!',
             'access_token' => $tokenResult->accessToken,
@@ -77,6 +88,9 @@ class AuthController extends Controller
                 $tokenResult->token->expires_at
             )->toDateTimeString()
         ]);
+    }
+    public function update($request)
+    {
     }
 
     /**
