@@ -6,7 +6,7 @@ use App\User;
 $factory->define(Post::class, function (Faker $faker)  use ($factory) {
     $userIds = User::all()->pluck('id')->toArray();
     return [
-        'body_content' => Str::random(100),
+        'body_content' => $faker->paragraph,
         'user_id' => $faker->randomElement($userIds)
     ];
 });
