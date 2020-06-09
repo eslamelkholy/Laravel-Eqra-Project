@@ -30,7 +30,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $post = Post::create($request->all());
-        if($request->hasFile('postFiles'))
+        if ($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
         event(new PostAdded($post));
         return response()->json($post, 201);
@@ -51,12 +51,13 @@ class PostController extends Controller
         if (is_null($post))
             return response()->json(["message" => "Post Not Found"], 404);
         $post->delete();
-        return response()->json(null, 204);
+        return response()->json(["id" => $id], 204);
     }
     // Upload Files Handler
-    public function uploadPostFiles($request, $postId){
+    public function uploadPostFiles($request, $postId)
+    {
         $files = $request->file('postFiles');
-        foreach($files as $file){
+        foreach ($files as $file) {
             $filename = $file->store('postFiles');
             PostFile::create([
                 'post_id' => $postId,

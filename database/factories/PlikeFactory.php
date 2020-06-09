@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Plike::class, function (Faker $faker) use ($factory) {
     return [
-        'user_id' => $factory->create(App\User::class)->id,
+        'user_id' => $faker->randomNumber(2),
         'post_id' => 17
     ];
 });

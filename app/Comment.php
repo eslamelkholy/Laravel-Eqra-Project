@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $fillable = [
-        'content', 'user_id','post_id','image'
+        'content', 'user_id', 'post_id', 'image'
     ];
 
     public function user()
@@ -22,6 +22,6 @@ class Comment extends Model
 
     public function image()
     {
-        return $this->hasOne('App\Comment_image','comment_id');
+        return $this->hasOne('App\Comment_Image', 'comment_id');
     }
 }
