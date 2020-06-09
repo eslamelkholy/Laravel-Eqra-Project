@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            PlikeSeeder::class,
-            ClikeSeeder::class,
             PostSeeder::class,
+            PlikeSeeder::class,
             GenreSeeder::class,
+            EventSeeder::class,
+            EventParticipantSeeder::class,
+            ClikeSeeder::class,
         ]);
     
     }
