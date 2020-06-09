@@ -9,12 +9,10 @@ use Carbon\Carbon;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UseValidateRequest;
-<<<<<<< HEAD
+use App\Http\Requests\UpdateUser;
 use App\Http\Resources\Post as PostResource;
 
-=======
-use App\Http\Requests\UpdateUser;
->>>>>>> 727465c0653420010e69db9f74f829df650dbdf5
+
 
 class AuthController extends Controller
 {
