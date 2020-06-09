@@ -9,6 +9,10 @@ use Carbon\Carbon;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UseValidateRequest;
+use App\Http\Requests\UpdateUser;
+use App\Http\Resources\Post as PostResource;
+
+
 
 class AuthController extends Controller
 {
@@ -36,9 +40,9 @@ class AuthController extends Controller
         // $request['pictur']=$path;
         $user = new User([
             'full_name' => $request->full_name,
-            'first_name'=>$request->first_name,
+            'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'username' =>$request->username,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
@@ -89,8 +93,24 @@ class AuthController extends Controller
             )->toDateTimeString()
         ]);
     }
-    public function update($request)
+    public function update(UpdateUser $request, $id)
     {
+        $user = User::where('id', $id)->first();
+        if ($request->hasFile('pictur')) {
+            $path = $request->file('pictur')->store('public/avatars');
+            $url = Storage::url($path);
+        } else {                                                                                                                                                                                                                                                                                            
+            $url = null;
+        }
+        $user->first_name = $request->first_name;
+        $user->full_name = $request->full_name;
+        $user->last_name = $request->last_name;
+        $user->username = $request->username;
+        $user->pictur = $request->pictur;
+        $user->save();
+
+        return
+            response()->json(['user' => $user, 'message' => "user updated successfully"], 200);
     }
 
     /**
@@ -113,6 +133,10 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        $posts = $request->user()->posts;
+        return response()->json([
+            'currentUserPosts' => PostResource::collection($posts),
+            'currentUserComments' => $request->user()->comments,
+        ]);
     }
 }
