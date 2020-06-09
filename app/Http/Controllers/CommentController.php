@@ -73,9 +73,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        return "ok";
+
     }
 
     /**
@@ -87,7 +88,13 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment=Comment::find($id);
+        if(is_null($comment))
+            return response()->json(["message" => "Comment Not Found"], 404);
+        $comment->update([
+            'content'=>$request->content
+        ]);
+        return response()->json($comment,200);
     }
 
     /**
@@ -98,7 +105,11 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment=Comment::find($id);
+        if(is_null($comment))
+            return response()->json(["message" => "Comment Not Found"], 404);
+        $comment->delete();
+        return response()->json(["message" => "Comment Deleted Successfully"],200);
     }
 
     private function validateRequest(){
