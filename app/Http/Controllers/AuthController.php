@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UseValidateRequest;
+use App\Http\Resources\Post as PostResource;
+
 
 class AuthController extends Controller
 {
@@ -113,6 +115,10 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        $posts = $request->user()->posts;
+        return response()->json([
+            'currentUserPosts' => PostResource::collection($posts),
+            'currentUserComments' => $request->user()->comments,
+        ]);
     }
 }
