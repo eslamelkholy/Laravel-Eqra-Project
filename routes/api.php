@@ -37,7 +37,11 @@ Route::group([
 // Route::group(['middleware' => 'auth:api'], function () {
 Route::apiResource("post", 'PostController');
 Route::get("post/{post}/likes", 'LikesController@plikes');
+Route::post("post/like", 'LikesController@pStore');
+Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
 Route::get("comment/{comment}/likes", 'LikesController@clikes');
+Route::post("comment/like", 'LikesController@cStore');
+Route::delete("comment/{comment}/likes/{user}", 'LikesController@cdestroy');
 // User Genres Add/Update/Delete User Genres
 Route::apiResource("user/genre", 'UserGenreController');
 // List All Genres

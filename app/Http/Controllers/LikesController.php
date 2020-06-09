@@ -44,4 +44,36 @@ class LikesController extends Controller
         }
         return response()->json($users, 200);
     }
+
+
+    public function pStore(Request $request)
+    {
+
+        $like = Plike::create([
+            "post_id" => $request->post_id,
+            "user_id" => $request->user_id
+        ]);
+        return response()->json(["like" => $like]);
+    }
+
+    public function cStore(Request $request)
+    {
+        $like = Clike::create([
+            "comment_id" => $request->comment_id,
+            "user_id" => $request->user_id
+        ]);
+        return response()->json(["like" => $like]);
+    }
+
+    public function pDestroy($post_id, $user_id)
+    {
+        Plike::where(["user_id" => $user_id, "post_id" => $post_id])->delete();
+        return response()->json(["post" => $post_id, "user" => $user_id]);
+    }
+
+    public function cDestroy($comment_id, $user_id)
+    {
+        Clike::where(["user_id" => $user_id, "comment_id" => $comment_id])->delete();
+        return response()->json(["post" => $comment_id, "user" => $user_id]);
+    }
 }
