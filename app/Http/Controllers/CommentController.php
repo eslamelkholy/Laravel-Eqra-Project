@@ -19,7 +19,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments=Comment::where('post_id',1)->orderBy('created_at', 'desc')->paginate(10);
+        $comments=Comment::where('post_id',$_GET["post_id"])->orderBy('created_at', 'desc')->paginate(10);
         return CommentResource::collection($comments);
     }
 
