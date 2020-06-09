@@ -14,4 +14,14 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Clike', 'comment_id');
+    }
+
+    public function image()
+    {
+        return $this->hasOne('App\Comment_image','comment_id');
+    }
 }

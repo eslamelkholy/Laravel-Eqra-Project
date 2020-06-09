@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Comment_Image;
 use App\Events\PostAdded;
+use App\Http\Resources\Comment as CommentResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -17,9 +19,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-
-        $comments=Comment::all()->sortBy('created_at');
-        return response()->json($comments,200);
+        $comments=Comment::where('post_id',$_GET["post_id"])->orderBy('created_at', 'desc')->paginate(10);
+        return CommentResource::collection($comments);
     }
 
     /**
@@ -72,9 +73,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        return "ok";
+
     }
 
     /**
@@ -86,7 +88,13 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment=Comment::find($id);
+        if(is_null($comment))
+            return response()->json(["message" => "Comment Not Found"], 404);
+        $comment->update([
+            'content'=>$request->content
+        ]);
+        return response()->json($comment,200);
     }
 
     /**
@@ -97,7 +105,11 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment=Comment::find($id);
+        if(is_null($comment))
+            return response()->json(["message" => "Comment Not Found"], 404);
+        $comment->delete();
+        return response()->json(["message" => "Comment Deleted Successfully"],200);
     }
 
     private function validateRequest(){
