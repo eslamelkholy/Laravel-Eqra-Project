@@ -35,7 +35,7 @@ Route::group([
 });
 
 // Normal Api's >> Tokens & application/json Must Be Included to work
-// Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
@@ -47,8 +47,8 @@ Route::group([
     Route::apiResource("user/genre", 'UserGenreController');
     // List All Genres
     Route::apiResource("genre", 'GenreController');
-    Route::apiResource("event", 'EventParticipantController');
-// });
+    Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
+});
 
 
 // Route::group(['middleware' => 'auth:api'], function () {
