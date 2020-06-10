@@ -6,7 +6,7 @@ use App\User;
 $factory->define(Event::class, function (Faker $faker)  use ($factory) {
     $userIds = User::all()->pluck('id')->toArray();
     return [
-        'name' => $faker->title,
+        'name' => $faker->name,
         'description' => $faker->paragraph,
         'start_date' => now(),
         'end_date'   => $faker->dateTimeBetween($startDate = 'now', $endDate = '30 days'),
