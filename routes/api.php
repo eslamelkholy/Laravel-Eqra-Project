@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("user/genre", 'UserGenreController');
     // List All Genres
     Route::apiResource("genre", 'GenreController');
+    Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
 });
 
 
