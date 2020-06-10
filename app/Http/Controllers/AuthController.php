@@ -99,7 +99,7 @@ class AuthController extends Controller
         if ($request->hasFile('pictur')) {
             $path = $request->file('pictur')->store('public/avatars');
             $url = Storage::url($path);
-        } else {                                                                                                                                                                                                                                                                                            
+        } else {
             $url = null;
         }
         $user->first_name = $request->first_name;
@@ -133,10 +133,15 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        $posts = $request->user()->posts;
+        // $user = $request->user()->with(['posts.likes', 'comments'])->get();
+        // $books = App\Book::with(['author', 'publisher'])->get();
+
         return response()->json([
-            'currentUserPosts' => PostResource::collection($posts),
-            'currentUserComments' => $request->user()->comments,
+            'user' => $request->user()
+
+
+            // 'currentUserPosts' => PostResource::collection($posts),
+            // 'currentUserComments' => $request->user()->comments,
         ]);
     }
 }
