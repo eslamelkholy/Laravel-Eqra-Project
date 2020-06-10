@@ -48,7 +48,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("genre", 'GenreController');
     // Events Section
     Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
-    Route::post("event/{event}/participant", 'EventParticipantController@addParticipant');
+    Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
+    Route::post("event/{event}/participantStatus", 'EventParticipantController@ParticipantStatus');
 
 });
 
