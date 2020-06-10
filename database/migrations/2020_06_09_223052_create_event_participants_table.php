@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventsParticipantsTable extends Migration
+class CreateEventParticipantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEventsParticipantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events_participants', function (Blueprint $table) {
+        Schema::create('event_participants', function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->enum('state', [
                 'pending',

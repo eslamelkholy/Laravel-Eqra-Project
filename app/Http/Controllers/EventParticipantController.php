@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\EventParticipant;
 
 class EventParticipantController extends Controller
 {
@@ -13,7 +14,7 @@ class EventParticipantController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(EventParticipant::all(), 200);
     }
 
     /**
