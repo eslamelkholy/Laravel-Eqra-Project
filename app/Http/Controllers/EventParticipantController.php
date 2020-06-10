@@ -9,7 +9,6 @@ use App\Http\Requests\EventParticipantRequest;
 
 class EventParticipantController extends Controller
 {
-
     public function addParticipant(EventParticipantRequest $request, $id)
     {
         $event = Event::find($id);
