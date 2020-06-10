@@ -44,6 +44,7 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'username' => $request->username,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => bcrypt($request->password),
         ]);
         $user->save();
@@ -52,6 +53,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully created user!',
             'access_token' => $tokenResult->accessToken,
+            'role' => $user->role,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
@@ -87,6 +89,7 @@ class AuthController extends Controller
         $token->save();
         return response()->json([
             'access_token' => $tokenResult->accessToken,
+            'role' => $user->role,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
@@ -99,7 +102,7 @@ class AuthController extends Controller
         if ($request->hasFile('pictur')) {
             $path = $request->file('pictur')->store('public/avatars');
             $url = Storage::url($path);
-        } else {                                                                                                                                                                                                                                                                                            
+        } else {
             $url = null;
         }
         $user->first_name = $request->first_name;
