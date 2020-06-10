@@ -53,7 +53,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Books');
     }
 
-    // genres OneToMany Relationship
+    // genres ManytoMany Relationship
     public function genres()
     {
         return $this->belongsToMany('App\Genre', 'user_genres')->withTimestamps();
