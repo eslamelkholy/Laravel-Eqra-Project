@@ -43,11 +43,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("comment/{comment}/likes", 'LikesController@clikes');
     Route::post("comment/like", 'LikesController@cStore');
     Route::delete("comment/{comment}/likes/{user}", 'LikesController@cdestroy');
-    // User Genres Add/Update/Delete User Genres
+    // Genres Section
     Route::apiResource("user/genre", 'UserGenreController');
-    // List All Genres
     Route::apiResource("genre", 'GenreController');
+    // Events Section
     Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
+    Route::post("event/{event}/participant", 'EventParticipantController@addParticipant');
+
 });
 
 

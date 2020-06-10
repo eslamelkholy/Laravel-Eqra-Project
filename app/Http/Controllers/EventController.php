@@ -42,7 +42,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if (is_null($event))
-            return response()->json(["message" => "Post Not Found"], 404);
+            return response()->json(["message" => "Event Not Found"], 404);
         $event->delete();
         return response()->json(null, 204);
     }
