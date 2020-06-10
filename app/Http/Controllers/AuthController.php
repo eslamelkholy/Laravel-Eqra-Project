@@ -143,4 +143,11 @@ class AuthController extends Controller
             'currentUserComments' => $request->user()->comments,
         ]);
     }
+
+    public function writer(Request $request)
+    {
+        // username , image , description
+        // accept request and send back all writer data
+        // writer data includes { posts , events , books }
+    }
 }

@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Comment');
     }
 
+    public function Books()
+    {
+        return $this->hasMany('App\Books');
+    }
+
     // genres OneToMany Relationship
     public function genres()
     {
