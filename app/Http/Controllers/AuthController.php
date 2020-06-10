@@ -138,6 +138,7 @@ class AuthController extends Controller
     {
         $posts = $request->user()->posts;
         return response()->json([
+            'user' => $request->user(),
             'currentUserPosts' => PostResource::collection($posts),
             'currentUserComments' => $request->user()->comments,
         ]);
