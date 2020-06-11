@@ -37,7 +37,7 @@ class PostController extends Controller
             $this->uploadPostFiles($request, $post->id);
         // event(new PostAdded($post));
         if($request->has('eventId'))
-            attachEventPost($post->id, $request->eventId);
+            $this->attachEventPost($post->id, $request->eventId);
             
         $post->genres()->attach($request->genres);
         return response()->json($post, 201);
@@ -60,7 +60,7 @@ class PostController extends Controller
         $post->delete();
         return response()->json(["id" => $id], 204);
     }
-    
+
     // Upload Files Handler
     public function uploadPostFiles($request, $postId)
     {

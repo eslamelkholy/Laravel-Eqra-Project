@@ -7,8 +7,8 @@ use App\EventPost;
 use App\Event;
 class EventPostController extends Controller
 {
-    public function saveEventPost(Request $request,Event $event)
+    public function getEventPosts(Request $request,Event $event)
     {
-        $event->posts()->attach($request->post);
+        return response()->json(["event >>>" => $event->posts]);
     }
 }
