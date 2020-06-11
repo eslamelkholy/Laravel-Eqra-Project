@@ -15,7 +15,8 @@ class Post extends JsonResource
             'user' => $this->user,
             'likes' => $this->likes->count(),
             'files' => $this->postFiles,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'genres' => $this->genres
         ];
     }
     public function with($request){

@@ -29,10 +29,12 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
+        $request['user_id'] = Auth::id();
         $post = Post::create($request->all());
         if ($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
-        event(new PostAdded($post));
+        // event(new PostAdded($post));
+        $post->genres()->attach($request->genres);
         return response()->json($post, 201);
     }
 
