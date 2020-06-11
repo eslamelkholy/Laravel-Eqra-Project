@@ -50,7 +50,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
     Route::post("event/{event}/participantStatus", 'EventParticipantController@ParticipantStatus');
-
+    // Events Posts
+    Route::post("/event/{event}/addPost", 'EventPostController@saveEventPost');
 });
 
 

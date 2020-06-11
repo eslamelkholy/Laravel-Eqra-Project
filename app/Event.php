@@ -39,4 +39,9 @@ class Event extends Model
         return $this->belongsToMany('App\User', 'event_participants')->where('state', 'going')->withTimestamps();
     }
 
+    public function posts()
+    {
+        return $this->belongsToMany('App\Post', 'event_posts');
+    }
+
 }
