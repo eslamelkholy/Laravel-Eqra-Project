@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Bridge\AccessToken;
@@ -51,14 +52,19 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 
-// Route::group(['middleware' => 'auth:api'], function () {
-Route::apiResource("comment", 'CommentController');
-// });
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("comment", 'CommentController');
+});
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("follow", 'FollowController');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResource("char", 'ChatController');
+    Route::apiResource("chat", 'ChatController');
+});
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/private-messages/{reciever}',"MessageController@privateMessages")->name("privateMessages");
+    Route::post('/private-messages',"MessageController@sendPrivateMessage")->name("privateMessages.store");
 });
