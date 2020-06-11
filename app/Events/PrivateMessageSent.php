@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageSent implements ShouldBroadcast
+class PrivateMessageSent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -36,11 +36,11 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chat.'.$this->message->reciever_id);
+        return new PrivateChannel('chat');
     }
 
     public function broadcastAs()
     {
-        return 'message-sent';
+        return 'private-message-sent';
     }
 }

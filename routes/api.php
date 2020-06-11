@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Bridge\AccessToken;
@@ -30,13 +31,14 @@ Route::group([
     ], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-        Route::patch('users/{id}/edit', 'AuthController@update');
+        Route::put('users/{id}/edit', 'AuthController@update');
     });
 });
 
 // Normal Api's >> Tokens & application/json Must Be Included to work
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
+    Route::get("userposts", 'AuthController@currentUsrPosts');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
@@ -55,14 +57,19 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 
-// Route::group(['middleware' => 'auth:api'], function () {
-Route::apiResource("comment", 'CommentController');
-// });
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("comment", 'CommentController');
+});
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("follow", 'FollowController');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResource("char", 'ChatController');
+    Route::apiResource("chat", 'ChatController');
+});
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/private-messages/{reciever}',"MessageController@privateMessages")->name("privateMessages");
+    Route::post('/private-messages',"MessageController@sendPrivateMessage")->name("privateMessages.store");
 });
