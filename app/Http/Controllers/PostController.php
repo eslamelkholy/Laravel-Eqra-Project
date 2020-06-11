@@ -34,6 +34,7 @@ class PostController extends Controller
         if ($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
         // event(new PostAdded($post));
+        $post->genres()->attach($request->genres);
         return response()->json($post, 201);
     }
 

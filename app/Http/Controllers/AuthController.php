@@ -154,4 +154,11 @@ class AuthController extends Controller
         $posts = Post::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(10);
         return PostResource::collection($posts);
     }
+
+    public function writer(Request $request)
+    {
+        // username , image , description
+        // accept request and send back all writer data
+        // writer data includes { posts , events , books }
+    }
 }

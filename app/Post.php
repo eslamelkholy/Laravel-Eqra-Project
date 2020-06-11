@@ -23,4 +23,10 @@ class Post extends Model
     {
         return $this->hasMany('App\Plike', 'post_id');
     }
+
+    // genres ManytoMany Relationship One Side Only
+    public function genres()
+    {
+        return $this->belongsToMany('App\Genre', 'post_genres');
+    }
 }

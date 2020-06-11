@@ -48,7 +48,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Comment');
     }
 
-    // genres OneToMany Relationship
+    public function Books()
+    {
+        return $this->hasMany('App\Books');
+    }
+
+    // genres ManytoMany Relationship
     public function genres()
     {
         return $this->belongsToMany('App\Genre', 'user_genres')->withTimestamps();
@@ -56,7 +61,7 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->hasMany('app\Message','user_id');
+        return $this->hasMany('App\Message','user_id');
     }
 
     // User Events
@@ -69,5 +74,13 @@ class User extends Authenticatable
     public function userJoinedEvents()
     {
         return $this->belongsToMany('App\Event', 'event_participants')->withTimestamps();
+    }
+
+    public function followers(){
+        return $this->hasMany('App\Follow','followed_id');
+    }
+
+    public function following(){
+        return $this->hasMany('App\Follow','follower_id');
     }
 }

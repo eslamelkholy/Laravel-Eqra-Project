@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Follow;
+use App\Http\Resources\Follow as ResourcesFollow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FollowController extends Controller
 {
@@ -15,7 +17,8 @@ class FollowController extends Controller
      */
     public function index()
     {
-        //
+        $data=DB::table('follows')->join('users','users.id','=','follows.followed_id')->get();
+        return response()->json($data);
     }
 
     /**
@@ -52,7 +55,7 @@ class FollowController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
