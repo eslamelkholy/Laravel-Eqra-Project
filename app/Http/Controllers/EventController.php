@@ -3,82 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
+use App\Http\Resources\Event as EventResource;
+use App\Http\Requests\EventRequest;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $events = Event::orderBy('created_at', 'desc')->paginate(10);
+        return EventResource::collection($events);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(EventRequest $request)
     {
-        //
+        $event = Event::create($request->all());
+        return response()->json($event, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $event = Event::find($id);
+        if (is_null($event))
+            return response()->json(["message" => "Event Not Found"], 404);
+        return new EventResource($event);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(EventRequest $request, $id)
     {
-        //
+        $event = Event::find($id);
+        if (is_null($event))
+            return response()->json(["message" => "Event Not Found"], 404);
+        $event->update($request->all());
+        return response()->json($event, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $event = Event::find($id);
+        if (is_null($event))
+            return response()->json(["message" => "Event Not Found"], 404);
+        $event->delete();
+        return response()->json(null, 204);
     }
 }

@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UseValidateRequest;
 use App\Http\Requests\UpdateUser;
 use App\Http\Resources\Post as PostResource;
-
+use App\Post;
+use App\Http\Requests\PostRequest;
+use App\PostFile;
 
 
 class AuthController extends Controller
@@ -44,6 +46,7 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'username' => $request->username,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => bcrypt($request->password),
         ]);
         $user->save();
@@ -52,6 +55,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully created user!',
             'access_token' => $tokenResult->accessToken,
+            'role' => $user->role,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
@@ -87,18 +91,21 @@ class AuthController extends Controller
         $token->save();
         return response()->json([
             'access_token' => $tokenResult->accessToken,
+            'role' => $user->role,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
             )->toDateTimeString()
         ]);
     }
-    public function update(UpdateUser $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::where('id', $id)->first();
+        // dd($request->all);
         if ($request->hasFile('pictur')) {
             $path = $request->file('pictur')->store('public/avatars');
             $url = Storage::url($path);
+            dd($url);
         } else {
             $url = null;
         }
@@ -110,7 +117,7 @@ class AuthController extends Controller
         $user->save();
 
         return
-            response()->json(['user' => $user, 'message' => "user updated successfully"], 200);
+            response()->json(['user' => $request, 'message' => "user updated successfully"], 200);
     }
 
     /**
@@ -133,15 +140,18 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        // $user = $request->user()->with(['posts.likes', 'comments'])->get();
-        // $books = App\Book::with(['author', 'publisher'])->get();
+      
 
         return response()->json([
             'user' => $request->user()
-
-
             // 'currentUserPosts' => PostResource::collection($posts),
             // 'currentUserComments' => $request->user()->comments,
         ]);
+    }
+    public function currentUsrPosts(){
+        $userId= auth()->user()->id;
+    
+        $posts = Post::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(10);
+        return PostResource::collection($posts);
     }
 }

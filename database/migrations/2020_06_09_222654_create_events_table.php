@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration
             $table->bigIncrements("id");
             $table->string("name");
             $table->longText("description");
+            $table->string("location");
             $table->date('start_date');
             $table->date('end_date');
             $table->unsignedBigInteger("user_id");

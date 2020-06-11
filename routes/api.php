@@ -30,24 +30,26 @@ Route::group([
     ], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-        Route::patch('users/{id}/edit', 'AuthController@update');
+        Route::put('users/{id}/edit', 'AuthController@update');
     });
 });
 
 // Normal Api's >> Tokens & application/json Must Be Included to work
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
+    Route::get("userposts", 'AuthController@currentUsrPosts');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
     Route::get("comment/{comment}/likes", 'LikesController@clikes');
     Route::post("comment/like", 'LikesController@cStore');
     Route::delete("comment/{comment}/likes/{user}", 'LikesController@cdestroy');
-    // User Genres Add/Update/Delete User Genres
+    // Genres Section
     Route::apiResource("user/genre", 'UserGenreController');
-    // List All Genres
     Route::apiResource("genre", 'GenreController');
+    // Events Section
     Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
+    Route::post("event/{event}/participant", 'EventParticipantController@addParticipant');
 });
 
 

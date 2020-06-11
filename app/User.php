@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','full_name','username' ,'email', 'password'
+        'first_name','last_name','full_name','username' ,'email', 'password', 'role'
     ];
 
     /**
@@ -57,5 +57,17 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany('app\Message','user_id');
+    }
+
+    // User Events
+    public function events()
+    {
+        return $this->hasMany('App\Event');
+    }
+
+    // Events & Participants ManyToMany Relationship
+    public function userJoinedEvents()
+    {
+        return $this->belongsToMany('App\Event', 'event_participants')->withTimestamps();
     }
 }
