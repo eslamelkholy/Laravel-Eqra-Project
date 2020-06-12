@@ -34,6 +34,8 @@ class EventParticipantController extends Controller
     public function getUserEventStatus(Request $request, $id)
     {
         $currentUserStatus = EventParticipant::where(['user_id' => Auth::id(), 'event_id' => $id])->first();
+        if(is_null($currentUserStatus))
+            return response()->json(['state' => 'clickToJoin'], 200);
         return response()->json(['state' => $currentUserStatus->state], 200);
     }
 }
