@@ -16,7 +16,7 @@ class ChatController extends Controller
      */
     public function index()
     {
-        $messages=Message::with('user')->get();
+
     }
 
     /**
@@ -37,13 +37,8 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        $message=new Message([
-            'user_id'=>Auth::user()->id,
-            'content'=>$request->message
-        ]);
-        $message->save();
-        broadcast(new MessageSent(Auth::user(), $message))->toOthers();
-        return ['status' => 'Message Sent!'];
+
+
     }
 
     /**
@@ -54,7 +49,13 @@ class ChatController extends Controller
      */
     public function show($id)
     {
-        //
+        $messages=Message::with('user')
+        ->where(['user_id'=>Auth::user()->id,'reciever_id'=>$id])
+        ->orWhere(function($query) use($id){
+            $query->where(['user_id'=>$id,'reciever_id'=>Auth::user()->id]);
+        })->get();
+
+        return $messages;
     }
 
     /**

@@ -1,22 +1,11 @@
 
 <?php
 
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Bridge\AccessToken;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 
 // Authentication & User Api's
 Route::group([
@@ -30,13 +19,14 @@ Route::group([
     ], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-        Route::patch('users/{id}/edit', 'AuthController@update');
+        Route::put('users/{id}/edit', 'AuthController@update');
     });
 });
 
 // Normal Api's >> Tokens & application/json Must Be Included to work
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
+    Route::get("userposts", 'AuthController@currentUsrPosts');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
@@ -47,9 +37,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("user/genre", 'UserGenreController');
     Route::apiResource("genre", 'GenreController');
     // Events Section
-    Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
+    Route::apiResource("event", 'EventController');
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
-    Route::post("event/{event}/participantStatus", 'EventParticipantController@ParticipantStatus');
+    Route::post("event/{event}/participantStatus", 'EventParticipantController@changeParticipantStatus');
+    Route::get("event/{event}/participantStatus", 'EventParticipantController@getUserEventStatus');
+    // Events Posts Section
+    Route::get("event/{event}/posts", 'EventPostController@getEventPosts');
 });
 
 
@@ -57,10 +50,20 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("comment", 'CommentController');
 });
 
+
+
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResource("follow", 'FollowController');
+    Route::apiResource("chat", 'ChatController');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResource("char", 'ChatController');
+    Route::get('/private-messages/{recieverid}', "MessageController@privateMessages")->name("privateMessages");
+    Route::post('/private-messages', "MessageController@sendPrivateMessage")->name("privateMessages.store");
+});
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/my-followers', "FollowController@getMyFollowers");
+    Route::get('/persons-i-follow', "FollowController@getPersonsIFollow");
+    Route::post('/follow/{id}', "FollowController@follow");
+    Route::delete('/unfollow/{id}', "FollowController@unfollow");
 });

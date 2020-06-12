@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Http\Resources\Event as EventResource;
 use App\Http\Requests\EventRequest;
+use Auth;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('WriterMiddleware')->except(['index', 'show']);
+    }
     public function index()
     {
         $events = Event::orderBy('created_at', 'desc')->paginate(10);
@@ -17,6 +22,7 @@ class EventController extends Controller
 
     public function store(EventRequest $request)
     {
+        $request['user_id'] = Auth::id();
         $event = Event::create($request->all());
         return response()->json($event, 201);
     }

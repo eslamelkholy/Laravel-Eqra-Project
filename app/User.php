@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->hasMany('app\Message','user_id');
+        return $this->hasMany('App\Message','user_id');
     }
 
     // User Events
@@ -74,5 +74,13 @@ class User extends Authenticatable
     public function userJoinedEvents()
     {
         return $this->belongsToMany('App\Event', 'event_participants')->withTimestamps();
+    }
+
+    public function followers(){
+        return $this->hasMany('App\Follow','followed_id');
+    }
+
+    public function following(){
+        return $this->hasMany('App\Follow','follower_id');
     }
 }
