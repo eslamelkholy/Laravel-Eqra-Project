@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             PostSeeder::class,
+            CommentSeeder::class,
             PlikeSeeder::class,
             GenreSeeder::class,
-            EventSeeder::class,
-            EventParticipantSeeder::class,
+            // EventSeeder::class,
+            // EventParticipantSeeder::class,
             ClikeSeeder::class,
         ]);
-    
     }
 }

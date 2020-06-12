@@ -19,7 +19,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments=Comment::where('post_id',$_GET["post_id"])->orderBy('created_at', 'desc')->paginate(10);
+        $comments = Comment::where('post_id', $_GET["post_id"])->orderBy('created_at', 'desc')->paginate(10);
         return CommentResource::collection($comments);
     }
 
@@ -42,17 +42,17 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $this->validateRequest();
-        $comment=new Comment([
-            'user_id'=>Auth::user()->id,
-            'post_id'=>$request->postId,
-            'content'=>$request->content
+        $comment = new Comment([
+            'user_id' => Auth::user()->id,
+            'post_id' => $request->postId,
+            'content' => $request->content
         ]);
         $comment->save();
-        if($request->hasFile('image')){
-            $this->storeImage($request,$comment->id);
+        if ($request->hasFile('image')) {
+            $this->storeImage($request, $comment->id);
         }
         event(new PostAdded($comment));
-        return response()->json($comment,200);
+        return response()->json($comment, 200);
     }
 
     /**
@@ -63,7 +63,7 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $comment=Comment_Image::find($id);
+        $comment = Comment_Image::find($id);
         return $comment;
     }
 
@@ -73,10 +73,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
         return "ok";
-
     }
 
     /**
@@ -88,13 +87,13 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $comment=Comment::find($id);
-        if(is_null($comment))
+        $comment = Comment::find($id);
+        if (is_null($comment))
             return response()->json(["message" => "Comment Not Found"], 404);
         $comment->update([
-            'content'=>$request->content
+            'content' => $request->content
         ]);
-        return response()->json($comment,200);
+        return response()->json($comment, 200);
     }
 
     /**
@@ -105,29 +104,31 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment=Comment::find($id);
-        if(is_null($comment))
+        $comment = Comment::find($id);
+        if (is_null($comment))
             return response()->json(["message" => "Comment Not Found"], 404);
         $comment->delete();
-        return response()->json(["message" => "Comment Deleted Successfully"],200);
+        return response()->json(["message" => "Comment Deleted Successfully"], 200);
     }
 
-    private function validateRequest(){
-        if(request()->hasFile('image')){
+    private function validateRequest()
+    {
+        if (request()->hasFile('image')) {
             request()->validate([
-                'image'=>'required|image',
+                'image' => 'required|image',
             ]);
-        }else{
+        } else {
             request()->validate([
-                'content'=>'required',
+                'content' => 'required',
             ]);
         }
     }
 
-    private function storeImage($request,$commentId){
-        $image=new Comment_Image();
-        $image->image=$request->image->store('comments','public');
-        $image->comment_id=$commentId;
+    private function storeImage($request, $commentId)
+    {
+        $image = new Comment_Image();
+        $image->image = $request->image->store('comments', 'public');
+        $image->comment_id = $commentId;
         $image->save();
     }
 }
