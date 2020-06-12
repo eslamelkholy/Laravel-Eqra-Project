@@ -17,7 +17,11 @@ class FollowController extends Controller
      */
     public function index()
     {
-        $data=DB::table('follows')->join('users','users.id','=','follows.followed_id')->get();
+        $data=DB::table('follows')
+        ->join('users','users.id','=','follows.followed_id')
+        ->where('follows.follower_id','=',Auth::user()->id)
+        ->select('follows.followed_id','follows.follower_id','users.pictur','users.full_name')
+        ->get();
         return response()->json($data);
     }
 

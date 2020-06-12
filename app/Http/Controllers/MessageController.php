@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    public function privateMessages(User $user){
+    public function privateMessages($id){
         $messages=Message::with('user')
-        ->where(['user_id'=>auth()->id,'reciever_id'=>$user->id])
-        ->orWhere(function($query) use($user){
-            $query->where(['user_id'=>$user->id,'reciever_id'=>auth()->id]);
+        ->where(['user_id'=>Auth::user()->id,'reciever_id'=>$id])
+        ->orWhere(function($query) use($id){
+            $query->where(['user_id'=>$id,'reciever_id'=>Auth::user()->id]);
         })->get();
 
         return $messages;

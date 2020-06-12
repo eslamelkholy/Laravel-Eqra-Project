@@ -68,6 +68,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('/private-messages/{reciever}',"MessageController@privateMessages")->name("privateMessages");
+    Route::get('/private-messages/{recieverid}',"MessageController@privateMessages")->name("privateMessages");
     Route::post('/private-messages',"MessageController@sendPrivateMessage")->name("privateMessages.store");
 });
