@@ -17,7 +17,7 @@ class LikesController extends Controller
         //     array_push($users, $like->user);
         // }
         $users = DB::table('users')->join('plikes', 'id', '=', 'user_id')
-            ->select('name', 'id')->where('post_id', '=', $id)->paginate(10);
+            ->select('full_name', 'id')->where('post_id', '=', $id)->paginate(10);
         // $arr = [];
         // for ($i = 0; $i < 100000; $i++) {
         //     for ($j = 0; $j < 100000; $j++) {
@@ -34,7 +34,7 @@ class LikesController extends Controller
         //     array_push($users, $like->user);
         // }
         $users = DB::table('users')->join('clikes', 'id', '=', 'user_id')
-            ->select('name', 'id')->where('comment_id', '=', $id)->paginate(10);
+            ->select('full_name', 'id')->where('comment_id', '=', $id)->paginate(10);
 
         $arr = [];
         for ($i = 0; $i < 10000; $i++) {
