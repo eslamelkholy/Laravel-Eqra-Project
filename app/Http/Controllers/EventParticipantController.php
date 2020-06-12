@@ -19,7 +19,7 @@ class EventParticipantController extends Controller
         return response()->json(["event" => $event]);
 
     }
-    public function ParticipantStatus(Request $request, $id)
+    public function changeParticipantStatus(Request $request, $id)
     {
         $event = Event::find($id);
         if (is_null($event))
@@ -28,5 +28,14 @@ class EventParticipantController extends Controller
             ['user_id' => Auth::id(), 'event_id' => $id],
             [ 'state' => $request->state ]
         );
+        return response()->json(["message" => "State Updated Successfully", 'state' => $request->state]);
+    }
+
+    public function getUserEventStatus(Request $request, $id)
+    {
+        $currentUserStatus = EventParticipant::where(['user_id' => Auth::id(), 'event_id' => $id])->first();
+        if(is_null($currentUserStatus))
+            return response()->json(['state' => 'clickToJoin'], 200);
+        return response()->json(['state' => $currentUserStatus->state], 200);
     }
 }

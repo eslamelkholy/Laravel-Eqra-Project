@@ -10,6 +10,8 @@ use  Auth;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Requests\PostRequest;
 use App\PostFile;
+use App\Event;
+use App\EventPost;
 
 class PostController extends Controller
 {
@@ -33,8 +35,11 @@ class PostController extends Controller
         $post = Post::create($request->all());
         if ($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
-        // event(new PostAdded($post));
+        if($request->has('eventId'))
+            $this->attachEventPost($post->id, $request->eventId);
+            
         $post->genres()->attach($request->genres);
+        // event(new PostAdded($post));
         return response()->json($post, 201);
     }
 
@@ -55,6 +60,7 @@ class PostController extends Controller
         $post->delete();
         return response()->json(["id" => $id], 204);
     }
+
     // Upload Files Handler
     public function uploadPostFiles($request, $postId)
     {
@@ -66,5 +72,16 @@ class PostController extends Controller
                 'filename' => $filename
             ]);
         }
+    }
+    // Attach Post to Specified Event
+    public function attachEventPost($postId, $eventId)
+    {
+        $event = Event::find($eventId);
+        if(is_null($event))
+            return response()->json(["message" => "Invalid Event Id"]);
+        EventPost::create([
+            'event_id' => $eventId,
+            'post_id' => $postId
+        ]);
     }
 }

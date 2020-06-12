@@ -31,7 +31,7 @@ class UpdateUser extends FormRequest
             'last_name' => 'required|string|max:100',
             'full_name' => 'required|string|max:205',
             'username' => 'required|string|max:100,unique:users',
-            'pictur' => 'mimes:jpeg,jpg,png,gif|max:10000'
+            // 'pictur' => 'mimes:jpeg,jpg,png,gif|max:10000'
         ];
        
     }
@@ -51,8 +51,8 @@ class UpdateUser extends FormRequest
             'username.unique' => 'this username already exists',
             'username.string' => 'username is string',
             'username.max' => 'username should not be more than 100 character',
-            'pictur.mimes' => 'you should upload jpeg,jpg,png,gif images',
-            'pictur.max' => 'image size should be 1 megabyte or less'
+            // 'pictur.mimes' => 'you should upload jpeg,jpg,png,gif images',
+            // 'pictur.max' => 'image size should be 1 megabyte or less'
            
           
         ];

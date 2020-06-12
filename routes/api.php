@@ -31,13 +31,14 @@ Route::group([
     ], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-        Route::patch('users/{id}/edit', 'AuthController@update');
+        Route::put('users/{id}/edit', 'AuthController@update');
     });
 });
 
 // Normal Api's >> Tokens & application/json Must Be Included to work
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
+    Route::get("userposts", 'AuthController@currentUsrPosts');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
@@ -48,10 +49,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("user/genre", 'UserGenreController');
     Route::apiResource("genre", 'GenreController');
     // Events Section
-    Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
+    Route::apiResource("event", 'EventController');
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
-    Route::post("event/{event}/participantStatus", 'EventParticipantController@ParticipantStatus');
-
+    Route::post("event/{event}/participantStatus", 'EventParticipantController@changeParticipantStatus');
+    Route::get("event/{event}/participantStatus", 'EventParticipantController@getUserEventStatus');
+    // Events Posts
+    Route::get("event/{event}/posts", 'EventPostController@getEventPosts');
 });
 
 

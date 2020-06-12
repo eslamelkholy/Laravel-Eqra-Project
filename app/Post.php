@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'body_content', 'user_id',
+        'body_content', 'user_id', 'isFeatured'
     ];
     // Inverse Relationship
     public function user()

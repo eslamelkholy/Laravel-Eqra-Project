@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UseValidateRequest;
 use App\Http\Requests\UpdateUser;
 use App\Http\Resources\Post as PostResource;
-
+use App\Post;
+use App\Http\Requests\PostRequest;
+use App\PostFile;
 
 
 class AuthController extends Controller
@@ -96,12 +98,14 @@ class AuthController extends Controller
             )->toDateTimeString()
         ]);
     }
-    public function update(UpdateUser $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::where('id', $id)->first();
+        // dd($request->all);
         if ($request->hasFile('pictur')) {
             $path = $request->file('pictur')->store('public/avatars');
             $url = Storage::url($path);
+            dd($url);
         } else {
             $url = null;
         }
@@ -113,7 +117,7 @@ class AuthController extends Controller
         $user->save();
 
         return
-            response()->json(['user' => $user, 'message' => "user updated successfully"], 200);
+            response()->json(['user' => $request, 'message' => "user updated successfully"], 200);
     }
 
     /**
@@ -136,12 +140,19 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        $posts = $request->user()->posts;
+      
+
         return response()->json([
-            'user' => $request->user(),
-            'currentUserPosts' => PostResource::collection($posts),
-            'currentUserComments' => $request->user()->comments,
+            'user' => $request->user()
+            // 'currentUserPosts' => PostResource::collection($posts),
+            // 'currentUserComments' => $request->user()->comments,
         ]);
+    }
+    public function currentUsrPosts(){
+        $userId= auth()->user()->id;
+    
+        $posts = Post::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(10);
+        return PostResource::collection($posts);
     }
 
     public function writer(Request $request)
