@@ -51,9 +51,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     // Events Section
     Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
-    Route::post("event/{event}/participantStatus", 'EventParticipantController@ParticipantStatus');
+    Route::post("event/{event}/participantStatus", 'EventParticipantController@changeParticipantStatus');
+    Route::get("event/{event}/participantStatus", 'EventParticipantController@getUserEventStatus');
     // Events Posts
-    Route::post("event/{event}/posts", 'EventPostController@getEventPosts');
+    Route::get("event/{event}/posts", 'EventPostController@getEventPosts');
 });
 
 

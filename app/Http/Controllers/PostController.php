@@ -35,11 +35,11 @@ class PostController extends Controller
         $post = Post::create($request->all());
         if ($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
-        // event(new PostAdded($post));
         if($request->has('eventId'))
             $this->attachEventPost($post->id, $request->eventId);
             
         $post->genres()->attach($request->genres);
+        // event(new PostAdded($post));
         return response()->json($post, 201);
     }
 
