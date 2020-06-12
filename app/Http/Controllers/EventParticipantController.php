@@ -15,8 +15,9 @@ class EventParticipantController extends Controller
         $event = Event::find($id);
         if (is_null($event))
             return response()->json(["message" => "Event Not Found"], 404);
-        $event->users()->attach($request->participants);
-        return response()->json(["event" => $event]);
+        
+        $event->users()->syncWithoutDetaching($request->participants);
+        return response()->json(["event" => $request->participants]);
 
     }
     public function changeParticipantStatus(Request $request, $id)

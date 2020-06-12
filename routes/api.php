@@ -7,18 +7,6 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Bridge\AccessToken;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-
 // Authentication & User Api's
 Route::group([
     'prefix' => 'auth'
@@ -53,7 +41,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
     Route::post("event/{event}/participantStatus", 'EventParticipantController@changeParticipantStatus');
     Route::get("event/{event}/participantStatus", 'EventParticipantController@getUserEventStatus');
-    // Events Posts
+    // Events Posts Section
     Route::get("event/{event}/posts", 'EventPostController@getEventPosts');
 });
 
