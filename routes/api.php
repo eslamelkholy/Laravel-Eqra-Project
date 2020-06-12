@@ -50,13 +50,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
     Route::post("event/{event}/participantStatus", 'EventParticipantController@ParticipantStatus');
-
 });
 
 
-// Route::group(['middleware' => 'auth:api'], function () {
-Route::apiResource("comment", 'CommentController');
-// });
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("comment", 'CommentController');
+});
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("follow", 'FollowController');

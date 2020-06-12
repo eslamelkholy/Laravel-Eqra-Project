@@ -35,7 +35,7 @@ class PostController extends Controller
             $this->uploadPostFiles($request, $post->id);
         // event(new PostAdded($post));
         $post->genres()->attach($request->genres);
-        return response()->json($post, 201);
+        return new PostResource($post);
     }
 
     public function update(PostRequest $request, $id)
