@@ -39,12 +39,8 @@ class PostController extends Controller
             $this->attachEventPost($post->id, $request->eventId);
             
         $post->genres()->attach($request->genres);
-<<<<<<< HEAD
-        return new PostResource($post);
-=======
         // event(new PostAdded($post));
-        return response()->json($post, 201);
->>>>>>> 7356422c53c60c1082e4b7e383d238b11ebba79a
+        return new PostResource($post);
     }
 
     public function update(PostRequest $request, $id)
