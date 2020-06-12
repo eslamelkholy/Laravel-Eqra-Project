@@ -98,14 +98,13 @@ class AuthController extends Controller
             )->toDateTimeString()
         ]);
     }
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request)
     {
-        $user = User::where('id', $id)->first();
-        // dd($request->all);
+        $user = User::where('id', $request->id)->first();
         if ($request->hasFile('pictur')) {
-            $path = $request->file('pictur')->store('public/avatars');
+            $path = $request->file('pictur')->store('public');
             $url = Storage::url($path);
-            dd($url);
+            // dd($url);
         } else {
             $url = null;
         }
@@ -117,7 +116,7 @@ class AuthController extends Controller
         $user->save();
 
         return
-            response()->json(['user' => $request, 'message' => "user updated successfully"], 200);
+            response()->json(['user' => $user, 'message' => "user updated successfully"], 200);
     }
 
     /**
