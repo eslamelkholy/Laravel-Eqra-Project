@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("user/genre", 'UserGenreController');
     Route::apiResource("genre", 'GenreController');
     // Events Section
-    Route::apiResource("event", 'EventController')->middleware("WriterMiddleware");
+    Route::apiResource("event", 'EventController');
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
     Route::post("event/{event}/participantStatus", 'EventParticipantController@changeParticipantStatus');
     Route::get("event/{event}/participantStatus", 'EventParticipantController@getUserEventStatus');

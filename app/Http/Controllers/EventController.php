@@ -10,6 +10,10 @@ use Auth;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('WriterMiddleware')->except(['index', 'show']);
+    }
     public function index()
     {
         $events = Event::orderBy('created_at', 'desc')->paginate(10);
