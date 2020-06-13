@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post("event/{event}/participants", 'EventParticipantController@addParticipant');
     Route::post("event/{event}/participantStatus", 'EventParticipantController@changeParticipantStatus');
     Route::get("event/{event}/participantStatus", 'EventParticipantController@getUserEventStatus');
+    Route::get("user/event", 'EventParticipantController@getUserEvents');
     // Events Posts Section
     Route::get("event/{event}/posts", 'EventPostController@getEventPosts');
 });
