@@ -19,7 +19,6 @@ class Event extends JsonResource
             'event_pending_users' => $this->pendingUsers()->count(),
             'event_interested_users' => $this->interestedUsers()->count(),
             'event_going_users' => $this->goingUsers()->count(),
-            'event_users' => $this->users,
         ];
     }
 
