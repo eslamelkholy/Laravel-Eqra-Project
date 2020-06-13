@@ -100,19 +100,19 @@ class AuthController extends Controller
     }
     public function update(UpdateUser $request)
     {
+        $url = null;
         $user = User::where('id', $request->id)->first();
         if ($request->hasFile('pictur')) {
             $path = $request->file('pictur')->store('public');
             $url = Storage::url($path);
-            // dd($url);
-        } else {
-            $url = null;
         }
         $user->first_name = $request->first_name;
         $user->full_name = $request->full_name;
         $user->last_name = $request->last_name;
         $user->username = $request->username;
-        $user->pictur = $request->pictur;
+        if ($url != null) {
+            $user->pictur = $url;
+        }
         $user->save();
 
         return
@@ -139,7 +139,7 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-      
+
 
         return response()->json([
             'user' => $request->user()
@@ -147,9 +147,10 @@ class AuthController extends Controller
             // 'currentUserComments' => $request->user()->comments,
         ]);
     }
-    public function currentUsrPosts(){
-        $userId= auth()->user()->id;
-    
+    public function currentUsrPosts()
+    {
+        $userId = auth()->user()->id;
+
         $posts = Post::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(10);
         return PostResource::collection($posts);
     }
