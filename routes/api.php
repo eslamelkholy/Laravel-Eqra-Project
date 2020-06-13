@@ -19,7 +19,7 @@ Route::group([
     ], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-        Route::put('users/{id}/edit', 'AuthController@update');
+        Route::put('users/edit', 'AuthController@update');
     });
 });
 
