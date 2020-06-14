@@ -157,6 +157,13 @@ class AuthController extends Controller
         return PostResource::collection($posts);
     }
 
+    public function currentUsrFeaturedPosts(Request $request)
+    {
+        $userId = $request->userId;
+        $posts = Post::where('user_id', $userId)->where('isFeatured',true)->orderBy('created_at', 'desc')->take(3)->get();
+        return PostResource::collection($posts);
+    }
+
     public function writer(Request $request)
     {
         // username , image , description

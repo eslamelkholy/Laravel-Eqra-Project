@@ -24,6 +24,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
     Route::get("userposts/{userId}", 'AuthController@currentUsrPosts');
+    Route::get("userFeaturedPosts/{userId}", 'AuthController@currentUsrFeaturedPosts');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
