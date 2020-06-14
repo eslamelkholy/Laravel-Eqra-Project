@@ -15,6 +15,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+        Route::get('getuser/{id}', 'AuthController@getSpecificUser');
         Route::put('users/edit', 'AuthController@update');
     });
 });
@@ -22,7 +23,7 @@ Route::group(['prefix' => 'auth'], function () {
 // Normal Api's >> Tokens & application/json Must Be Included to work
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("post", 'PostController');
-    Route::get("userposts", 'AuthController@currentUsrPosts');
+    Route::get("userposts/{userId}", 'AuthController@currentUsrPosts');
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
