@@ -28,6 +28,23 @@ class FollowController extends Controller
         return response()->json($data);
     }
 
+    public function getFollowersCount(){
+        $data=
+        [
+        'followers'=>DB::table('follows')
+            ->join('users','users.id','=','follows.follower_id')
+            ->where('follows.followed_id','=',Auth::user()->id)
+            ->select('follows.follower_id','users.pictur','users.full_name')
+            ->get()->count(),
+        'following'=>DB::table('follows')
+            ->join('users','users.id','=','follows.followed_id')
+            ->where('follows.follower_id','=',Auth::user()->id)
+            ->select('follows.followed_id','users.pictur','users.full_name')
+            ->get()->count()
+        ];
+        return response()->json($data);
+    }
+
     public function follow($id){
         $follow=new Follow([
             'follower_id'=>Auth::user()->id,
