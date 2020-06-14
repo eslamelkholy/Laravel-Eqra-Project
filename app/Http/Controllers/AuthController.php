@@ -140,17 +140,19 @@ class AuthController extends Controller
     public function user(Request $request)
     {
 
-
         return response()->json([
             'user' => $request->user()
-            // 'currentUserPosts' => PostResource::collection($posts),
-            // 'currentUserComments' => $request->user()->comments,
         ]);
     }
-    public function currentUsrPosts()
+    public function getSpecificUser(Request $request){
+        $user = User::where('id', $request->id)->first();
+        return response()->json([
+            'user' => $user
+        ]);
+    }
+    public function currentUsrPosts(Request $request)
     {
-        $userId = auth()->user()->id;
-
+        $userId = $request->userId;
         $posts = Post::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(10);
         return PostResource::collection($posts);
     }
