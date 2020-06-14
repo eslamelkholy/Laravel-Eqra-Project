@@ -7,7 +7,7 @@ use App\EventParticipant;
 use App\Event;
 use App\Http\Requests\EventParticipantRequest;
 use Auth;
-
+use App\Http\Resources\Event as EventResource;
 class EventParticipantController extends Controller
 {
     public function addParticipant(EventParticipantRequest $request, $id)
@@ -38,5 +38,11 @@ class EventParticipantController extends Controller
         if(is_null($currentUserStatus))
             return response()->json(['state' => 'clickToJoin'], 200);
         return response()->json(['state' => $currentUserStatus->state], 200);
+    }
+
+    public function getUserEvents(Request $request)
+    {
+        // return response()->json(['events' => Auth::user()->userJoinedEvents], 200);
+        return EventResource::collection(Auth::user()->userJoinedEvents);
     }
 }
