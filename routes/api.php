@@ -28,9 +28,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("post/{post}/likes", 'LikesController@plikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
+    Route::get("post/{post}/likes/{user}", 'LikesController@checkForPlike');
     Route::get("comment/{comment}/likes", 'LikesController@clikes');
     Route::post("comment/like", 'LikesController@cStore');
     Route::delete("comment/{comment}/likes/{user}", 'LikesController@cdestroy');
+    Route::get("comment/{comment}/likes/{user}", 'LikesController@checkForClike');
     // Genres Section
     Route::apiResource("user/genre", 'UserGenreController');
     Route::apiResource("genre", 'GenreController');
@@ -71,4 +73,5 @@ Route::group(['middleware' => 'auth:api'], function () {
 //elastic search trends route
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/trends', "ElasticController@trends");
+    Route::get('/trends/{name}', "ElasticController@getWriterPosts");
 });
