@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ElasticController extends Controller
 {
-    public function getData()
+    public function trends()
     {
         // Post::createIndex($shards = null, $replicas = null);
         // Post::putMapping($ignoreConflicts = true);
@@ -28,14 +28,17 @@ class ElasticController extends Controller
                     )
                 )
             ));
+            $posts['count'] = $data->count();
             $posts['posts'] = $data;
             $posts['writer'] = $writer;
             array_push($trends, $posts);
         }
+        usort($trends, function ($a, $b) {
+            return ($a["count"] >= $b["count"]) ? -1 : 1;
+        });
 
 
-
-        return response()->json(['data' => $trends]);
+        return response()->json(['data' => array_slice($trends, 0, 5)]);
         // return $posts;
         // $typeExists = Post::typeExists();
         // dd($typeExists);

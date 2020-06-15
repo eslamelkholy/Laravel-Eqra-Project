@@ -68,4 +68,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/followersCount', "FollowController@getFollowersCount");
 });
 
-Route::get('/elastic', "ElasticController@getData");
+//elastic search trends route
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/trends', "ElasticController@trends");
+});
