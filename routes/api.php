@@ -66,5 +66,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/follow/{id}', "FollowController@follow");
     Route::delete('/unfollow/{id}', "FollowController@unfollow");
     Route::get('/followersCount', "FollowController@getFollowersCount");
-
 });
+
+Route::get('/elastic', "ElasticController@getData");
