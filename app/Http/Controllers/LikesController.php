@@ -26,6 +26,20 @@ class LikesController extends Controller
         // }
         return response()->json($users, 200);
     }
+
+    public function userLikes($id)
+    {
+        $res = Plike::where("user_id" ,$id)->get('post_id')->map(function ($thing) {
+            return [
+                $thing->post_id,
+            ];
+        });
+        // DB::table('table_name')->all()->lists('id', 'title')->toArray()
+
+
+        return response()->json([$res]);
+    }
+
     public function clikes($id)
     {
         // $likes = Clike::where(['comment_id' => $id])->paginate(10);

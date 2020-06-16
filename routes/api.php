@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("userposts/{userId}", 'AuthController@currentUsrPosts');
     Route::get("userFeaturedPosts/{userId}", 'AuthController@currentUsrFeaturedPosts');
     Route::get("post/{post}/likes", 'LikesController@plikes');
+    Route::get("posts/{userId}/likes", 'LikesController@userLikes');
     Route::post("post/like", 'LikesController@pStore');
     Route::delete("post/{post}/likes/{user}", 'LikesController@pDestroy');
     Route::get("post/{post}/likes/{user}", 'LikesController@checkForPlike');
