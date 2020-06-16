@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Elasticquent\ElasticquentTrait;
 
 class Post extends Model
 {
+    use ElasticquentTrait;
+
     protected $fillable = [
         'body_content', 'user_id', 'isFeatured'
     ];
@@ -15,7 +18,8 @@ class Post extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
     // PostFiles OneToMany Relationship
-    public function postFiles(){
+    public function postFiles()
+    {
         return $this->hasMany('App\PostFile', 'post_id');
     }
     // Post Likes
@@ -29,4 +33,12 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Genre', 'post_genres');
     }
+
+    //elastic search
+    protected $mappingProperties = array(
+        'body_content' => array(
+            'type' => 'string',
+            'analyzer' => 'standard'
+        )
+    );
 }
