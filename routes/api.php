@@ -21,6 +21,7 @@ Route::group([
         Route::get('user', 'AuthController@user');
         Route::get('getuser/{id}', 'AuthController@getSpecificUser');
         Route::put('users/edit', 'AuthController@update');
+        Route::put('updatepassword', 'updatePasswordController@update');
     });
 });
 
@@ -64,8 +65,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('/my-followers', "FollowController@getMyFollowers");
-    Route::get('/persons-i-follow', "FollowController@getPersonsIFollow");
+    Route::get('/my-followers/{id}', "FollowController@getMyFollowers");
+    Route::get('/persons-i-follow/{id}', "FollowController@getPersonsIFollow");
     Route::post('/follow/{id}', "FollowController@follow");
     Route::delete('/unfollow/{id}', "FollowController@unfollow");
 });
