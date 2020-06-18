@@ -6,18 +6,19 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+// use Illuminate\Auth\Passwords\CanResetPassword;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,Notifiable;
-
+    use HasApiTokens, Notifiable;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','full_name','username' ,'email', 'password', 'role'
+        'first_name', 'last_name', 'full_name', 'username', 'email', 'password', 'role'
     ];
 
     /**
@@ -61,7 +62,7 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->hasMany('App\Message','user_id');
+        return $this->hasMany('App\Message', 'user_id');
     }
 
     // User Events
@@ -76,11 +77,13 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Event', 'event_participants')->withTimestamps();
     }
 
-    public function followers(){
-        return $this->hasMany('App\Follow','followed_id');
+    public function followers()
+    {
+        return $this->hasMany('App\Follow', 'followed_id');
     }
 
-    public function following(){
-        return $this->hasMany('App\Follow','follower_id');
+    public function following()
+    {
+        return $this->hasMany('App\Follow', 'follower_id');
     }
 }

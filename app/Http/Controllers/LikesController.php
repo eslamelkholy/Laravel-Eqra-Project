@@ -17,7 +17,7 @@ class LikesController extends Controller
         //     array_push($users, $like->user);
         // }
         $users = DB::table('users')->join('plikes', 'id', '=', 'user_id')
-            ->select('name', 'id')->where('post_id', '=', $id)->paginate(10);
+            ->select('full_name', 'id')->where('post_id', '=', $id)->paginate(10);
         // $arr = [];
         // for ($i = 0; $i < 100000; $i++) {
         //     for ($j = 0; $j < 100000; $j++) {
@@ -26,6 +26,20 @@ class LikesController extends Controller
         // }
         return response()->json($users, 200);
     }
+
+    public function userLikes($id)
+    {
+        $res = Plike::where("user_id" ,$id)->get('post_id')->map(function ($thing) {
+            return [
+                $thing->post_id,
+            ];
+        });
+        // DB::table('table_name')->all()->lists('id', 'title')->toArray()
+
+
+        return response()->json([$res]);
+    }
+
     public function clikes($id)
     {
         // $likes = Clike::where(['comment_id' => $id])->paginate(10);
@@ -34,7 +48,7 @@ class LikesController extends Controller
         //     array_push($users, $like->user);
         // }
         $users = DB::table('users')->join('clikes', 'id', '=', 'user_id')
-            ->select('name', 'id')->where('comment_id', '=', $id)->paginate(10);
+            ->select('full_name', 'id')->where('comment_id', '=', $id)->paginate(10);
 
         $arr = [];
         for ($i = 0; $i < 10000; $i++) {
@@ -75,5 +89,16 @@ class LikesController extends Controller
     {
         Clike::where(["user_id" => $user_id, "comment_id" => $comment_id])->delete();
         return response()->json(["post" => $comment_id, "user" => $user_id]);
+    }
+
+    public function checkForPlike($post_id, $user_id)
+    {
+        $res = Plike::where(["user_id" => $user_id, "post_id" => $post_id])->count();
+        return response()->json(["res" => $res > 0]);
+    }
+    public function checkForClike($comment_id, $user_id)
+    {
+        $res = Clike::where(["user_id" => $user_id, "comment_id" => $comment_id])->count();
+        return response()->json(['res' => $res > 0]);
     }
 }
