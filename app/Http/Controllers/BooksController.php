@@ -20,17 +20,18 @@ class BooksController extends Controller
 
 	public function store(BookRequest $request)
 	{
-		// $request['user_id'] = Auth::id();
-		// $newBook = new Book;
-		// $newBook->title = $request->title;
-		// $newBook->description = $request->description;
-		// $newBook->price = $request->price;
-		// $path = $request->file('coverImage')->store('public');
-		// $newBook->coverImagePath = Storage::url($path);
-		// $newBook->save();
-		// return
-		// 	response()->json(['newBook' => new BookResource($newBook), 'message' => "user updated successfully"], 200);
-		return $request;
+		$request['user_id'] = Auth::id();
+		$newBook = new Book;
+		$newBook->title = $request->title;
+		$newBook->description = $request->description;
+		$newBook->price = $request->price;
+		$path = $request->file('coverImage')->store('public');
+		$newBook->coverImagePath = Storage::url($path);
+		$newBook->user_id = Auth::user()->id;
+		$newBook->save();
+		return
+			response()->json(['newBook' => new BookResource($newBook), 'message' => "user updated successfully"], 200);
+		// return $request;
 	}
 
 	public function show($id)
