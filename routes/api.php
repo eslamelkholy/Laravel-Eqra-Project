@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -65,7 +66,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("comment", 'CommentController');
 });
 
-
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("book", 'BooksController');
+    Route::get("user/books",'BooksController@userBooks');
+});
 
 // Route::group(['middleware' => 'auth:api'], function () {
 //     Route::apiResource("chat", 'ChatController');

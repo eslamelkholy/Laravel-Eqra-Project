@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function Books()
     {
-        return $this->hasMany('App\Books');
+        return $this->hasMany('App\Book');
     }
 
     // genres ManytoMany Relationship
