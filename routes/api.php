@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Bridge\AccessToken;
@@ -76,4 +77,14 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/trends', "ElasticController@trends");
     Route::get('/trends/{name}', "ElasticController@getWriterPosts");
+});
+//reset password apis
+Route::group([
+    'namespace' => 'Auth',
+    'middleware' => 'api',
+    'prefix' => 'password'
+], function () {
+    Route::post('create', "PasswordResetController@create");
+    Route::get('find/{token}', 'PasswordResetController@find');
+    Route::post('reset', 'PasswordResetController@reset');
 });
