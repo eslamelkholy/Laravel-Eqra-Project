@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class updatePasswordValidation extends FormRequest
+class validatePasswordResetCreate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,16 +26,16 @@ class updatePasswordValidation extends FormRequest
     public function rules()
     {
         return [
-            'newPassword' => 'required|string|confirmed|max:100'
+            'email' => 'required|email',
         ];
     }
-     public function messages()
+        public function messages()
     {
         return [
+            'email.required' => 'email is required',
+            'email.email' => 'you should enter a valid email',
+          
 
-            'newPassword.required' => 'password is required',
-            'newPassword.max' => 'password should not be more than 100 character',
-            'newPassword.confirmed' => 'you should confirm password',
         ];
     }
     protected function failedValidation(Validator $validator)

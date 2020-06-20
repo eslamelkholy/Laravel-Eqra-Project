@@ -16,9 +16,9 @@ class CreateBooksTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->string('title');
-            $table->multiLineString('description');
+            $table->longText('description');
             $table->string('coverImagePath');
-            $table->float('price');
+            $table->integer('price');
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
 
@@ -26,11 +26,6 @@ class CreateBooksTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('books');

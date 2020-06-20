@@ -6,8 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\CanResetPassword;
-// use Illuminate\Auth\Passwords\CanResetPassword;
+
 
 class User extends Authenticatable
 {
@@ -51,7 +50,7 @@ class User extends Authenticatable
 
     public function Books()
     {
-        return $this->hasMany('App\Books');
+        return $this->hasMany('App\Book');
     }
 
     // genres ManytoMany Relationship
