@@ -23,7 +23,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = $this->findPost($id);
         if (is_null($post))
             return response()->json(["message" => "Post Not Found"], 404);
         return new PostResource($post);
@@ -45,7 +45,7 @@ class PostController extends Controller
 
     public function update(PostRequest $request, $id)
     {
-        $post = Post::find($id);
+        $post = $this->findPost($id);
         if (is_null($post))
             return response()->json(["message" => "Post Not Found"], 404);
         $post->update($request->all());
@@ -54,7 +54,7 @@ class PostController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $post = Post::find($id);
+        $post = $this->findPost($id);
         if (is_null($post))
             return response()->json(["message" => "Post Not Found"], 404);
         $post->delete();
@@ -84,4 +84,10 @@ class PostController extends Controller
             'post_id' => $postId
         ]);
     }
+
+    public function findPost($bookId)
+    {
+        return Post::find($id);
+    }
+
 }
