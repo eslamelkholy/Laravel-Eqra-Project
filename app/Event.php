@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-        'name', 'description', 'location', 'start_date', 'end_date', 'user_id'
+        'name', 'description', 'location', 'start_date', 'end_date', 'user_id', 'cover_image'
     ];
     // User Events Inverse Relationship
     public function user()
