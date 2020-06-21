@@ -12,6 +12,7 @@ use App\Http\Requests\PostRequest;
 use App\PostFile;
 use App\Event;
 use App\EventPost;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -66,10 +67,10 @@ class PostController extends Controller
     {
         $files = $request->file('postFiles');
         foreach ($files as $file) {
-            $filename = $file->store('postFiles');
+            $filename = $file->store('public');
             PostFile::create([
                 'post_id' => $postId,
-                'filename' => $filename
+                'filename' => Storage::url($filename)
             ]);
         }
     }
