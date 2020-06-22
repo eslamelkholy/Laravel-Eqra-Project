@@ -69,9 +69,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("book", 'BooksController');
-    Route::get("user/books",'BooksController@userBooks');
+    Route::get("user/books", 'BooksController@userBooks');
+    
+    Route::post("/checkout", 'CheckoutController@purchase');
 });
-
 // Route::group(['middleware' => 'auth:api'], function () {
 //     Route::apiResource("chat", 'ChatController');
 // });
