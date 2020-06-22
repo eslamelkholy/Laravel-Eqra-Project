@@ -14,4 +14,14 @@ class SearchController extends Controller
                         ->get();
         return response()->json(['users' => $users], 200);
     }
+
+    public function massiveSearchProccessing($params)
+    {
+        $users = User::where('first_name', 'LIKE', '%' .$params. '%')
+                        ->orWhere('last_name', 'LIKE', '%' .$params. '%')
+                        ->orWhere('email', 'LIKE', '%' .$params. '%')
+                        ->limit(30)
+                        ->get();
+        return response()->json(['users' => $users], 200);
+    }
 }
