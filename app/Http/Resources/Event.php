@@ -13,6 +13,7 @@ class Event extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'user' => $this->user,
+            'cover_image' => $this->cover_image,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'created_at' => $this->created_at,

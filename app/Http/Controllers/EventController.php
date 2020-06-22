@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Event;
 use App\Http\Resources\Event as EventResource;
 use App\Http\Requests\EventRequest;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -22,14 +22,22 @@ class EventController extends Controller
 
     public function store(EventRequest $request)
     {
-        $request['user_id'] = Auth::id();
-        $event = Event::create($request->all());
+        $event = Event::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'location' => $request->location,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'user_id' => Auth::id(),
+            'cover_image' => $this->uploadEventCoverHandler($request)
+
+        ]);
         return response()->json($event, 201);
     }
 
     public function show($id)
     {
-        $event = Event::find($id);
+        $event = $this->getEvent($id);
         if (is_null($event))
             return response()->json(["message" => "Event Not Found"], 404);
         return new EventResource($event);
@@ -37,7 +45,7 @@ class EventController extends Controller
 
     public function update(EventRequest $request, $id)
     {
-        $event = Event::find($id);
+        $event = $this->getEvent($id);
         if (is_null($event))
             return response()->json(["message" => "Event Not Found"], 404);
         $event->update($request->all());
@@ -46,10 +54,22 @@ class EventController extends Controller
 
     public function destroy($id)
     {
-        $event = Event::find($id);
+        $event = $this->getEvent($id);
         if (is_null($event))
             return response()->json(["message" => "Event Not Found"], 404);
         $event->delete();
         return response()->json(null, 204);
+    }
+
+    // Upload Event Cover Handler
+    public function uploadEventCoverHandler($request)
+    {
+        $file = $request->file('cover_image')->store('public');
+        return Storage::url($file);
+    }
+
+    public function getEvent($eventId)
+    {
+        return Event::find($eventId);
     }
 }
