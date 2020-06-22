@@ -60,8 +60,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("user/event", 'EventParticipantController@getUserEvents');
     // Events Posts Section
     Route::get("event/{event}/posts", 'EventPostController@getEventPosts');
+    // Search Section
+    // Route::get("/search/{query}", 'SearchController@searchQuery');
 });
-
+Route::get("/search/{query}", 'SearchController@searchQuery');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("comment", 'CommentController');
