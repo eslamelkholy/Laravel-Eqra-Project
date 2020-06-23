@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Book as BookResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BookRequest;
+use App\User;
 use Illuminate\Support\Facades\Storage;
 
 class BooksController extends Controller
@@ -63,9 +64,12 @@ class BooksController extends Controller
 		return response()->json(["message" => "book Deleted Successfully"], 200);
 	}
 
-	public function userBooks()
+	public function userBooks($id)
 	{
-		return response()->json(["userBooks" => Auth::user()->Books], 200);
+		$user = User::find($id);
+		$posts = Book::where("user_id", "=", $user->id)->get();
+
+		return response()->json(["userBooks" => $posts], 200);
 	}
 
 	private function getBookById($id)
