@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class SearchController extends Controller
 {
@@ -19,6 +20,7 @@ class SearchController extends Controller
     {
         $users = User::where('first_name', 'LIKE', '%' .$params. '%')
                         ->orWhere('last_name', 'LIKE', '%' .$params. '%')
+                        ->orWhere('full_name', 'LIKE', '%' .$params. '%')
                         ->orWhere('email', 'LIKE', '%' .$params. '%')
                         ->limit(30)
                         ->get();

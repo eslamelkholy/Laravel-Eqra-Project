@@ -42,7 +42,6 @@ class EventParticipantController extends Controller
 
     public function getUserEvents(Request $request)
     {
-        // return response()->json(['events' => Auth::user()->userJoinedEvents], 200);
         return EventResource::collection(Auth::user()->userJoinedEvents);
     }
 }
