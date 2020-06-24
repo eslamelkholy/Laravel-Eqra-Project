@@ -1,7 +1,9 @@
 
 <?php
 
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Bridge\AccessToken;
@@ -58,15 +60,22 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("user/event", 'EventParticipantController@getUserEvents');
     // Events Posts Section
     Route::get("event/{event}/posts", 'EventPostController@getEventPosts');
+    // Search Section
+    // Route::get("/search/{query}", 'SearchController@searchQuery');
 });
-
+Route::get("/search/{query}", 'SearchController@searchQuery');
+Route::get("/massive/search/{query}", 'SearchController@massiveSearchProccessing');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource("comment", 'CommentController');
 });
 
-
-
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource("book", 'BooksController');
+    Route::get("user/{id}/books", 'BooksController@userBooks');
+    
+    Route::post("/checkout", 'CheckoutController@purchase');
+});
 // Route::group(['middleware' => 'auth:api'], function () {
 //     Route::apiResource("chat", 'ChatController');
 // });
@@ -82,10 +91,21 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/follow/{id}', "FollowController@follow");
     Route::delete('/unfollow/{id}', "FollowController@unfollow");
     Route::get('/followersCount', "FollowController@getFollowersCount");
+    Route::get('followersids', 'FollowController@getFollowersIds');
 });
 
 //elastic search trends route
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/trends', "ElasticController@trends");
     Route::get('/trends/{name}', "ElasticController@getWriterPosts");
+});
+//reset password apis
+Route::group([
+    'namespace' => 'Auth',
+    'middleware' => 'api',
+    'prefix' => 'password'
+], function () {
+    Route::post('create', "PasswordResetController@create");
+    Route::get('find/{token}', 'PasswordResetController@find');
+    Route::post('reset', 'PasswordResetController@reset');
 });

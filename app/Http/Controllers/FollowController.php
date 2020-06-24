@@ -50,6 +50,9 @@ class FollowController extends Controller
     }
 
     public function follow($id){
+        $follow = Follow::where([['follower_id', Auth::user()->id], ['followed_id', $id]])->first();
+        if(!is_null($follow))
+            return response()->json($follow, 200);
         $follow=new Follow([
             'follower_id'=>Auth::user()->id,
             'followed_id'=>$id
@@ -62,5 +65,10 @@ class FollowController extends Controller
     {
         Follow::where('followed_id', '=', $id)->delete();
         return ['status' => 'unfollow successfully'];
+    }
+
+    public function getFollowersIds()
+    {
+        return response(['myFollowersIds' => Auth::user()->following()->pluck('followed_id')->toArray()], 200);
     }
 }

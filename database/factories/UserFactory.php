@@ -25,6 +25,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->unique()->name,
         'email_verified_at' => now(),
+        'picture' => $faker->image('public/storage/images',400,300, null, false),
         'password' => '$2y$10$G0N2VvlUiw7O5f.CG5/UF.TqHDh4xr8UqDry/y.ZWRZ3hPbD1Gno.', // password >> 123
         'remember_token' => Str::random(10),
         'role' => 'writer'
