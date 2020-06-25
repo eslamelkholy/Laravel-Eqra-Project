@@ -18,7 +18,8 @@ class BookRequest extends FormRequest
 			'title' => 'required|min:5|max:100',
 			'description' => 'required|min:50|max:500',
 			'price' => 'required',
-			// 'coverImage' => 'required|file|mimes:jpg,jpeg,png,bmp',
+			'coverImage' => 'required',//|file|mimes:jpg,jpeg,png,bmp',
+			'bookPdf' => 'required',//|file|mimes:jpg,jpeg,png,bmp',
 		];
 	}
 	public function messages()
@@ -31,6 +32,8 @@ class BookRequest extends FormRequest
 			'description.min' => 'Post Body Must Be At least 50 Characters',
 			'description.max' => 'Sorry Max Numbers of Characters is 500',
 			'price.required' => 'price Is Required',
+			'coverImage.required' => 'coverImage Is Required',
+			'bookPdf.required' => 'bookPdf Is Required',
 			// 'coverImage.*.mimes' => 'Only accepts jpg,jpeg,png,bmp are allowed '
 		];
 	}

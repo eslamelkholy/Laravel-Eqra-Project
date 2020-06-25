@@ -27,8 +27,13 @@ class BooksController extends Controller
 		$newBook->title = $request->title;
 		$newBook->description = $request->description;
 		$newBook->price = $request->price;
-		$path = $request->file('coverImage')->store('public');
-		$newBook->coverImagePath = Storage::url($path);
+
+		$coverPath = $request->file('coverImage')->store('public');
+		$newBook->coverImagePath = Storage::url($coverPath);
+		
+		$pdfPath = $request->file('bookPdf')->store('public/pdf');
+		$newBook->bookPdf = Storage::url($pdfPath);
+
 		$newBook->user_id = Auth::user()->id;
 		$newBook->save();
 		return
