@@ -92,6 +92,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('/unfollow/{id}', "FollowController@unfollow");
     Route::get('/followersCount', "FollowController@getFollowersCount");
     Route::get('followersids', 'FollowController@getFollowersIds');
+    Route::get('myfollowingfollowers', 'FollowController@getFollowersFollowing');
+
 });
 
 //elastic search trends route
