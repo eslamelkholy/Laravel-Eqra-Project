@@ -24,6 +24,14 @@ class FollowController extends Controller
     public function getPersonsIFollow($id)
     {
         //  Auth::user()->id
+        if($id=='user'){
+            $data = DB::table('follows')
+            ->join('users', 'users.id', '=', 'follows.followed_id')
+            ->where('follows.follower_id', '=',Auth::user()->id)
+            ->select('follows.followed_id', 'users.pictur', 'users.full_name')
+            ->get();
+            return response()->json($data);
+        }
         $data = DB::table('follows')
             ->join('users', 'users.id', '=', 'follows.followed_id')
             ->where('follows.follower_id', '=',$id)

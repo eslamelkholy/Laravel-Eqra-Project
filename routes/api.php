@@ -76,6 +76,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     
     Route::post("/checkout", 'CheckoutController@purchase');
 });
+
 // Route::group(['middleware' => 'auth:api'], function () {
 //     Route::apiResource("chat", 'ChatController');
 // });

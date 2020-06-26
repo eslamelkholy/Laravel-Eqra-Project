@@ -22,6 +22,6 @@ Broadcast::channel('chat.{id}', function ($user) {
     return Auth::check();
 });
 
-// Broadcast::channel('chat.{recieverid}', function ($user,$recieverid) {
-//     return Auth::check();
-// });
+Broadcast::channel('chat.{recieverid}', function ($user,$recieverid) {
+    return Auth::check();
+});
