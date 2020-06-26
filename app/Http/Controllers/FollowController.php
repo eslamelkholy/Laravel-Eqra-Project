@@ -75,14 +75,21 @@ class FollowController extends Controller
     public function getFollowersData()
     {
         $followers = DB::table('follows')
-            ->join('users', 'users.id', '=', 'follows.followed_id')
-            ->where('follows.follower_id', '=',Auth::id())
-            ->select('follows.followed_id', 'follows.created_at' , 'users.pictur', 'users.full_name')
+            ->join('users', 'users.id', '=', 'follows.follower_id')
+            ->where('follows.followed_id', '=',Auth::id())
+            ->select('follows.follower_id', 'seen', 'follows.created_at' , 'users.pictur', 'users.full_name')
             ->get();
         return response([
             'myFollowers' => $followers,
-            'seen' => Auth::user()->following()->where('seen', 0)->count()
+            'seen' => $followers->where('seen', 0)->count()
         ], 200);
+    }
+    public function setUserFollowersSeen()
+    {
+        $followers = DB::table('follows')
+            ->where('follows.followed_id', '=',Auth::id())
+            ->update(['seen' => 1]);
+        return response()->json(['update' => "Succesfully Update"], 200);
     }
     public function getFollowersFollowing()
     {

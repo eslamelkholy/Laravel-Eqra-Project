@@ -94,6 +94,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('followers', 'FollowController@getFollowersData');
     Route::get('followersids', 'FollowController@getFollowersIds');
     Route::get('myfollowingfollowers', 'FollowController@getFollowersFollowing');
+    Route::get('setUserFollowersSeen', 'FollowController@setUserFollowersSeen');
 
 });
 
