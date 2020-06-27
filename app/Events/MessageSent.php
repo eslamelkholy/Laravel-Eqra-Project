@@ -23,10 +23,12 @@ class MessageSent implements ShouldBroadcast
      */
 
     public $message;
+    public $user;
 
-    public function __construct(Message $message)
+    public function __construct(Message $message,User $user)
     {
         $this->message = $message;
+        $this->user = $user;
     }
 
     /**

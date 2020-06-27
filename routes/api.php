@@ -83,7 +83,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/private-messages/{recieverid}', "MessageController@privateMessages")->name("privateMessages");
+    Route::get('/unseen',"MessageController@getUnseenMessagesUsers")->name('getUnseenMessagesUsers');
+    Route::post('/seen/{id}',"MessageController@seenMessages")->name('seenMessages');
     Route::post('/private-messages', "MessageController@sendPrivateMessage")->name("privateMessages.store");
+
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
