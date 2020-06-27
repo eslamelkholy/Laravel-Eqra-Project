@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
             CommentSeeder::class,
             PlikeSeeder::class,
             GenreSeeder::class,
-            // EventSeeder::class,
-            // EventParticipantSeeder::class,
-            ClikeSeeder::class,
+            EventSeeder::class,
+            EventParticipantSeeder::class,
+            // ClikeSeeder::class,
         ]);
     }
 }
