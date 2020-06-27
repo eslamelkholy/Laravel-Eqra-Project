@@ -18,7 +18,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        $followers = Auth::user()->following()->pluck('followed_id')->toArray();
+        $posts = Post::whereIn('user_id', $followers)->orderBy('created_at', 'desc')->paginate(10);
         return PostResource::collection($posts);
     }
 
