@@ -18,7 +18,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        $followers = Auth::user()->following()->pluck('followed_id')->toArray();
+        array_push($followers, Auth::id());
+        $posts = Post::whereIn('user_id', $followers)->orderBy('created_at', 'desc')->paginate(10);
         return PostResource::collection($posts);
     }
 
@@ -36,9 +38,9 @@ class PostController extends Controller
         $post = Post::create($request->all());
         if ($request->hasFile('postFiles'))
             $this->uploadPostFiles($request, $post->id);
-        if($request->has('eventId'))
+        if ($request->has('eventId'))
             $this->attachEventPost($post->id, $request->eventId);
-            
+
         $post->genres()->attach($request->genres);
         // event(new PostAdded($post));
         return new PostResource($post);
@@ -78,7 +80,7 @@ class PostController extends Controller
     public function attachEventPost($postId, $eventId)
     {
         $event = Event::find($eventId);
-        if(is_null($event))
+        if (is_null($event))
             return response()->json(["message" => "Invalid Event Id"]);
         EventPost::create([
             'event_id' => $eventId,
@@ -86,9 +88,8 @@ class PostController extends Controller
         ]);
     }
 
-    public function findPost($bookId)
+    public function findPost($id)
     {
         return Post::find($id);
     }
-
 }

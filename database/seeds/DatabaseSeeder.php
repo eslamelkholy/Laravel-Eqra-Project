@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             PostSeeder::class,
+            EventSeeder::class,
+            EventParticipantSeeder::class,
+            GenreSeeder::class,
             CommentSeeder::class,
             PlikeSeeder::class,
-            GenreSeeder::class,
-            // EventSeeder::class,
-            // EventParticipantSeeder::class,
             ClikeSeeder::class,
         ]);
     }
 }
+// php artisan migrate:fresh --seed

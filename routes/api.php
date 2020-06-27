@@ -95,8 +95,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/follow/{id}', "FollowController@follow");
     Route::delete('/unfollow/{id}', "FollowController@unfollow");
     Route::get('/followersCount', "FollowController@getFollowersCount");
+    Route::get('followers', 'FollowController@getFollowersData');
     Route::get('followersids', 'FollowController@getFollowersIds');
     Route::get('myfollowingfollowers', 'FollowController@getFollowersFollowing');
+    Route::get('setUserFollowersSeen', 'FollowController@setUserFollowersSeen');
 
 });
 

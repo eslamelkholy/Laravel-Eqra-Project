@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use App\Events\AddNewFollower;
 
 class FollowController extends Controller
 {
@@ -61,6 +62,7 @@ class FollowController extends Controller
             'followed_id' => $id
         ]);
         $follow->save();
+        event(new AddNewFollower($id));
         return response()->json($follow, 200);
     }
 
@@ -70,9 +72,24 @@ class FollowController extends Controller
         return ['status' => 'unfollow successfully'];
     }
 
-    public function getFollowersIds()
+    public function getFollowersData()
     {
-        return response(['myFollowersIds' => Auth::user()->following()->pluck('followed_id')->toArray()], 200);
+        $followers = DB::table('follows')
+            ->join('users', 'users.id', '=', 'follows.follower_id')
+            ->where('follows.followed_id', '=',Auth::id())
+            ->select('follows.follower_id', 'seen', 'follows.created_at' , 'users.pictur', 'users.full_name')
+            ->get();
+        return response([
+            'myFollowers' => $followers,
+            'seen' => $followers->where('seen', 0)->count()
+        ], 200);
+    }
+    public function setUserFollowersSeen()
+    {
+        $followers = DB::table('follows')
+            ->where('follows.followed_id', '=',Auth::id())
+            ->update(['seen' => 1]);
+        return response()->json(['update' => "Succesfully Update"], 200);
     }
     public function getFollowersFollowing()
     {
