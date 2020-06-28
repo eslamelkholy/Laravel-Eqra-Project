@@ -30,7 +30,7 @@ class BookShipping extends Mailable
      */
     public function build()
     {
-        return $this->from('mahmoedmohamed19@gmail.com')->subject('delievering your book')
+        return $this->from('esraa.abdelaziz141@gmail.com')->subject('delievering your book')
             ->attach($this->data['bookPdf'], ['as' => $this->data['title']]);
     }
 }
