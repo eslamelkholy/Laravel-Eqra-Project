@@ -77,7 +77,7 @@ class FollowController extends Controller
         $followers = DB::table('follows')
             ->join('users', 'users.id', '=', 'follows.follower_id')
             ->where('follows.followed_id', '=',Auth::id())
-            ->select('follows.follower_id', 'seen', 'follows.created_at' , 'users.pictur', 'users.full_name')
+            ->select('follows.follower_id', 'seen', 'role', 'follows.created_at' , 'users.pictur', 'users.full_name')
             ->get();
         return response([
             'myFollowers' => $followers,
