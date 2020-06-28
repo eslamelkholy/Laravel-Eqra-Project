@@ -9,7 +9,7 @@ class AddCoverImageToEvents extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->string("cover_image");
+            $table->string("cover_image")->nullable(true);
         });
     }
     public function down()
